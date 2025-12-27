@@ -5,16 +5,19 @@ export default function PercentageCalculator() {
   const [value1, setValue1] = useState('');
   const [value2, setValue2] = useState('');
   const [result, setResult] = useState<number | null>(null);
+  const [error, setError] = useState('');
 
   const calculate = () => {
     const num1 = parseFloat(value1);
     const num2 = parseFloat(value2);
 
     if (isNaN(num1) || isNaN(num2)) {
-      alert('Please enter valid numbers');
+      setError('Please enter valid numbers');
+      setResult(null);
       return;
     }
 
+    setError('');
     let calculatedResult = 0;
     
     switch (type) {
@@ -132,6 +135,12 @@ export default function PercentageCalculator() {
         >
           Calculate
         </button>
+
+        {error && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+            {error}
+          </div>
+        )}
 
         {result !== null && (
           <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">

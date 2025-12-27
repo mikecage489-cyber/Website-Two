@@ -1,4 +1,4 @@
-import { tools } from '../config/tools';
+import { tools, categoryInfo } from '../config/tools';
 
 export function generateSitemap(baseUrl: string): string {
   const urls = [
@@ -10,11 +10,10 @@ export function generateSitemap(baseUrl: string): string {
     { loc: `${baseUrl}/terms-conditions`, priority: '0.5', changefreq: 'yearly' },
   ];
 
-  // Add category pages
-  const categories = ['text-tools', 'calculator-tools', 'converter-tools', 'seo-tools', 'developer-tools'];
-  categories.forEach(category => {
+  // Add category pages from config
+  Object.keys(categoryInfo).forEach(categoryId => {
     urls.push({
-      loc: `${baseUrl}/category/${category}`,
+      loc: `${baseUrl}/category/${categoryId}`,
       priority: '0.8',
       changefreq: 'weekly'
     });

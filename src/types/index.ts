@@ -14,7 +14,6 @@ export type ToolCategory =
   | 'text-tools'
   | 'calculator-tools'
   | 'converter-tools'
-  | 'seo-tools'
   | 'developer-tools';
 
 export interface CategoryInfo {

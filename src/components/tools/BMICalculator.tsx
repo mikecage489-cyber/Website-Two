@@ -14,16 +14,19 @@ export default function BMICalculator() {
   const [height, setHeight] = useState('');
   const [unit, setUnit] = useState<'metric' | 'imperial'>('metric');
   const [result, setResult] = useState<BMIResult | null>(null);
+  const [error, setError] = useState('');
 
   const calculateBMI = () => {
     const w = parseFloat(weight);
     const h = parseFloat(height);
 
     if (isNaN(w) || isNaN(h) || w <= 0 || h <= 0) {
-      alert('Please enter valid positive numbers');
+      setError('Please enter valid positive numbers');
+      setResult(null);
       return;
     }
 
+    setError('');
     let bmi: number;
     
     if (unit === 'metric') {
@@ -57,6 +60,26 @@ export default function BMICalculator() {
     }
 
     setResult({ bmi, category, description, color });
+  };
+
+  const getResultColorClasses = (color: string) => {
+    const classes = {
+      blue: 'bg-blue-50 border-blue-200',
+      green: 'bg-green-50 border-green-200',
+      orange: 'bg-orange-50 border-orange-200',
+      red: 'bg-red-50 border-red-200',
+    };
+    return classes[color as keyof typeof classes] || 'bg-gray-50 border-gray-200';
+  };
+
+  const getTextColorClass = (color: string) => {
+    const classes = {
+      blue: 'text-blue-600',
+      green: 'text-green-600',
+      orange: 'text-orange-600',
+      red: 'text-red-600',
+    };
+    return classes[color as keyof typeof classes] || 'text-gray-600';
   };
 
   return (
@@ -118,13 +141,19 @@ export default function BMICalculator() {
           Calculate BMI
         </button>
 
+        {error && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+            {error}
+          </div>
+        )}
+
         {result && (
-          <div className={`bg-${result.color}-50 border border-${result.color}-200 rounded-lg p-6`}>
+          <div className={`${getResultColorClasses(result.color)} border rounded-lg p-6`}>
             <div className="text-center mb-4">
               <div className="text-5xl font-bold text-gray-900 mb-2">
                 {result.bmi.toFixed(1)}
               </div>
-              <div className={`text-xl font-semibold text-${result.color}-600`}>
+              <div className={`text-xl font-semibold ${getTextColorClass(result.color)}`}>
                 {result.description}
               </div>
             </div>

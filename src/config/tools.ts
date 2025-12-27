@@ -19,12 +19,6 @@ export const categoryInfo: Record<ToolCategory, CategoryInfo> = {
     description: 'Convert between different units and formats',
     icon: '🔄'
   },
-  'seo-tools': {
-    id: 'seo-tools',
-    name: 'SEO Tools',
-    description: 'Optimize your content for search engines',
-    icon: '🔍'
-  },
   'developer-tools': {
     id: 'developer-tools',
     name: 'Developer Tools',

@@ -9,10 +9,12 @@ export default function AgeCalculator() {
     totalDays: number;
     totalWeeks: number;
   } | null>(null);
+  const [error, setError] = useState('');
 
   const calculateAge = () => {
     if (!birthDate) {
-      alert('Please select a birth date');
+      setError('Please select a birth date');
+      setResult(null);
       return;
     }
 
@@ -20,9 +22,12 @@ export default function AgeCalculator() {
     const today = new Date();
 
     if (birth > today) {
-      alert('Birth date cannot be in the future');
+      setError('Birth date cannot be in the future');
+      setResult(null);
       return;
     }
+
+    setError('');
 
     let years = today.getFullYear() - birth.getFullYear();
     let months = today.getMonth() - birth.getMonth();
@@ -67,6 +72,12 @@ export default function AgeCalculator() {
       >
         Calculate Age
       </button>
+
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+          {error}
+        </div>
+      )}
 
       {result && (
         <div className="space-y-4">
