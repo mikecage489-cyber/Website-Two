@@ -43,8 +43,8 @@ export interface SEOData {
 }
 
 export interface FAQ {
-  question: string;
-  answer: string;
+  q: string;
+  a: string;
 }
 
 export interface ToolPageProps {

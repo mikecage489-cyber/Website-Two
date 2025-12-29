@@ -50,7 +50,9 @@ export default function HTMLEncoder() {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(outputText);
     setMessage('Copied to clipboard!');
-    setTimeout(() => process(), 2000);
+    setTimeout(() => {
+      setMessage(mode === 'encode' ? 'Text encoded successfully' : 'Text decoded successfully');
+    }, 2000);
   };
 
   const clear = () => {

@@ -14,9 +14,10 @@ export default function WordFrequencyCounter() {
     }
 
     const words = inputText
+      .toLowerCase()
+      .replace(/[^\w\s'-]/g, '') // Keep apostrophes and hyphens for words like "don't" and "co-worker"
       .split(/\s+/)
-      .map(word => word.replace(/[^\w]/g, ''))
-      .filter(word => word.length > 0);
+      .filter(word => word.length > 2 && word !== '--' && word !== "''"); // Filter out short words and standalone punctuation
 
     const frequencyMap = new Map<string, number>();
 

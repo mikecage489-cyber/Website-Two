@@ -36,7 +36,12 @@ export default function JavaScriptMinifier() {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(outputJS);
     setMessage('Copied to clipboard!');
-    setTimeout(() => minify(), 2000);
+    setTimeout(() => {
+      const originalSize = new Blob([inputJS]).size;
+      const minifiedSize = new Blob([outputJS]).size;
+      const savings = ((originalSize - minifiedSize) / originalSize * 100).toFixed(1);
+      setMessage(`Minified successfully! Reduced by ${savings}%`);
+    }, 2000);
   };
 
   const clear = () => {
