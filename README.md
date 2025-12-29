@@ -4,9 +4,11 @@ A modern, high-performance website offering free online tools built with React 1
 
 ## 🚀 Features
 
-- **10+ Free Online Tools** across multiple categories
+- **38+ Free Online Tools** across 5 categories
 - **100% Client-Side** - All processing happens in your browser
 - **SEO Optimized** - Dynamic meta tags, structured data, and sitemap
+- **Client-Side Search** - Instant search across all tools
+- **Category Filtering** - Filter tools by category
 - **Mobile-First Design** - Responsive and works on all devices
 - **Fast Performance** - Built with Vite for lightning-fast loading
 - **Google AdSense Ready** - Strategic ad placements without affecting UX
@@ -103,23 +105,55 @@ src/
 
 ## 🔧 Available Tools
 
-### Text Tools
+### Text Tools (10 tools)
 - Word Counter - Count words, characters, sentences, and reading time
 - Character Counter - Count characters with detailed breakdown
 - Case Converter - Convert text to various cases
 - Text Cleaner - Remove extra spaces and line breaks
+- Remove Duplicate Lines - Remove duplicate lines from text
+- Sort Lines Alphabetically - Sort text lines A-Z or Z-A
+- Reverse Text - Reverse text by characters, words, or lines
+- Lorem Ipsum Generator - Generate placeholder text
+- Palindrome Checker - Check if text is a palindrome
+- Word Frequency Counter - Analyze word frequency in text
 
-### Calculator Tools
+### Calculator Tools (9 tools)
 - Percentage Calculator - Calculate percentages and changes
 - Age Calculator - Calculate exact age from birth date
 - BMI Calculator - Calculate Body Mass Index
+- Tip Calculator - Calculate tips and split bills
+- Discount Calculator - Calculate discounts and savings
+- Compound Interest Calculator - Calculate investment returns
+- Grade Calculator - Calculate weighted grades
+- GPA Calculator - Calculate Grade Point Average
+- Date Calculator - Calculate days between dates
 
-### Converter Tools
+### Converter Tools (6 tools)
 - Unit Converter - Convert length, weight, and temperature
+- RGB to HEX Converter - Convert RGB colors to HEX
+- HEX to RGB Converter - Convert HEX colors to RGB
+- Binary Decimal Converter - Convert between binary and decimal
+- Timestamp Converter - Convert Unix timestamps to dates
+- Roman Numeral Converter - Convert Roman numerals to numbers
 
-### Developer Tools
+### Developer Tools (9 tools)
 - JSON Formatter & Validator - Format and validate JSON
-- Base64 Encoder/Decoder - Encode and decode Base64 strings
+- Base64 Encoder/Decoder - Encode and decode Base64
+- URL Encoder/Decoder - Encode and decode URLs
+- HTML Encoder/Decoder - Encode and decode HTML entities
+- Hash Generator (SHA-256) - Generate secure hashes
+- UUID Generator - Generate unique identifiers
+- Color Picker Tool - Pick colors and get color codes
+- CSS Minifier - Minify CSS code
+- JavaScript Minifier - Minify JavaScript code
+
+### SEO Tools (4 tools)
+- Meta Tag Length Checker - Check meta tag lengths
+- URL Slug Generator - Generate SEO-friendly slugs
+- Keyword Density Checker - Analyze keyword density
+- Open Graph Tag Generator - Generate Open Graph tags
+
+**Total: 38 Tools**
 
 ## ➕ Adding New Tools
 

@@ -2,15 +2,23 @@ import { useState } from 'react';
 import SEO from '../../components/seo/SEO';
 import ToolCard from '../../components/common/ToolCard';
 import Ad from '../../components/ads/Ad';
+import SearchBar from '../../components/common/SearchBar';
+import CategoryFilter from '../../components/common/CategoryFilter';
 import { tools, categoryInfo } from '../../config/tools';
-import type { ToolCategory } from '../../types';
+import type { ToolCategory, Tool } from '../../types';
 
 export default function AllTools() {
   const [selectedCategory, setSelectedCategory] = useState<ToolCategory | 'all'>('all');
+  const [searchResults, setSearchResults] = useState<Tool[]>(tools);
 
-  const filteredTools = selectedCategory === 'all' 
-    ? tools 
-    : tools.filter(tool => tool.category === selectedCategory);
+  // Filter by category
+  const categoryFilteredTools = selectedCategory === 'all' 
+    ? searchResults 
+    : searchResults.filter(tool => tool.category === selectedCategory);
+
+  const handleSearch = (filtered: Tool[]) => {
+    setSearchResults(filtered);
+  };
 
   return (
     <>
@@ -29,43 +37,27 @@ export default function AllTools() {
 
           <Ad className="mb-8" />
 
+          {/* Search Bar */}
+          <SearchBar tools={tools} onSearch={handleSearch} />
+
           {/* Category Filter */}
-          <div className="mb-8 flex flex-wrap gap-2">
-            <button
-              onClick={() => setSelectedCategory('all')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                selectedCategory === 'all'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              All Tools
-            </button>
-            {Object.values(categoryInfo).map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`px-4 py-2 rounded-lg transition-colors ${
-                  selectedCategory === category.id
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-100'
-                }`}
-              >
-                {category.icon} {category.name}
-              </button>
-            ))}
-          </div>
+          <CategoryFilter 
+            categories={categoryInfo}
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+          />
 
           {/* Tools Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredTools.map((tool) => (
+            {categoryFilteredTools.map((tool) => (
               <ToolCard key={tool.id} tool={tool} />
             ))}
           </div>
 
-          {filteredTools.length === 0 && (
+          {categoryFilteredTools.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-gray-600">No tools found in this category.</p>
+              <p className="text-xl text-gray-600 mb-2">No tools found</p>
+              <p className="text-gray-500">Try adjusting your search or filter selection</p>
             </div>
           )}
 
