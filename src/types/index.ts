@@ -4,17 +4,27 @@ export interface Tool {
   id: string;
   name: string;
   description: string;
+  longDescription?: string;
   category: ToolCategory;
   path: string;
   keywords: string[];
   featured: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  faqs?: FAQ[];
+  relatedToolIds?: string[];
+  instructions?: string;
+  example?: string;
+  useCases?: string[];
+  benefits?: string[];
 }
 
 export type ToolCategory = 
   | 'text-tools'
   | 'calculator-tools'
   | 'converter-tools'
-  | 'developer-tools';
+  | 'developer-tools'
+  | 'seo-tools';
 
 export interface CategoryInfo {
   id: ToolCategory;
