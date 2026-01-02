@@ -34,11 +34,11 @@ interface SchemaMarkupProps {
   data: WebApplicationSchema | FAQSchema | BreadcrumbSchema | OrganizationSchema;
 }
 
-function generateSchema(type: string, data: any) {
+function generateSchema(type: string, data: WebApplicationSchema | FAQSchema | BreadcrumbSchema | OrganizationSchema) {
   const baseUrl = window.location.origin;
 
   switch (type) {
-    case 'WebApplication':
+    case 'WebApplication': {
       const appData = data as WebApplicationSchema;
       return {
         '@context': 'https://schema.org',
@@ -56,8 +56,9 @@ function generateSchema(type: string, data: any) {
         },
         ...(appData.featureList && { featureList: appData.featureList })
       };
+    }
 
-    case 'FAQ':
+    case 'FAQ': {
       const faqData = data as FAQSchema;
       return {
         '@context': 'https://schema.org',
@@ -71,8 +72,9 @@ function generateSchema(type: string, data: any) {
           }
         }))
       };
+    }
 
-    case 'Breadcrumb':
+    case 'Breadcrumb': {
       const breadcrumbData = data as BreadcrumbSchema;
       return {
         '@context': 'https://schema.org',
@@ -84,8 +86,9 @@ function generateSchema(type: string, data: any) {
           item: item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`
         }))
       };
+    }
 
-    case 'Organization':
+    case 'Organization': {
       const orgData = data as OrganizationSchema;
       return {
         '@context': 'https://schema.org',
@@ -96,6 +99,7 @@ function generateSchema(type: string, data: any) {
         description: orgData.description,
         ...(orgData.sameAs && { sameAs: orgData.sameAs })
       };
+    }
 
     default:
       return null;
