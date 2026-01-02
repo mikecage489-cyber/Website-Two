@@ -442,7 +442,7 @@ export default function ToolPage() {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Tool Not Found</h1>
-        <Link to="/tools" className="text-blue-600 hover:text-blue-700">View all tools</Link>
+        <Link to="/tools" className="text-primary-600 hover:text-primary-700">View all tools</Link>
       </div>
     );
   }
@@ -455,7 +455,7 @@ export default function ToolPage() {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Tool Not Found</h1>
-        <Link to="/tools" className="text-blue-600 hover:text-blue-700">View all tools</Link>
+        <Link to="/tools" className="text-primary-600 hover:text-primary-700">View all tools</Link>
       </div>
     );
   }
@@ -500,9 +500,9 @@ export default function ToolPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Breadcrumb */}
           <nav className="mb-6 text-sm">
-            <Link to="/" className="text-blue-600 hover:text-blue-700">Home</Link>
+            <Link to="/" className="text-primary-600 hover:text-primary-700">Home</Link>
             <span className="mx-2 text-gray-400">/</span>
-            <Link to={`/category/${tool.category}`} className="text-blue-600 hover:text-blue-700">
+            <Link to={`/category/${tool.category}`} className="text-primary-600 hover:text-primary-700">
               {category.name}
             </Link>
             <span className="mx-2 text-gray-400">/</span>

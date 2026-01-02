@@ -25,12 +25,12 @@ export default function Home() {
       />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+      <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             🛠️ Helpful Tools
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-blue-100">
+          <p className="text-xl md:text-2xl mb-8 text-primary-100">
             Free, Fast, and Useful Online Tools for Everyone
           </p>
           <p className="text-lg mb-8 max-w-2xl mx-auto">
@@ -38,7 +38,7 @@ export default function Home() {
           </p>
           <Link
             to="/tools"
-            className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
+            className="inline-block bg-white text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors shadow-lg"
           >
             Browse All Tools
           </Link>
@@ -74,7 +74,7 @@ export default function Home() {
               <Link
                 key={category.id}
                 to={`/category/${category.id}`}
-                className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-200 hover:border-blue-400"
+                className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 hover:border-primary-400"
               >
                 <div className="text-4xl mb-4">{category.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">

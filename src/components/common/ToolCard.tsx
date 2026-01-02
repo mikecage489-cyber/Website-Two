@@ -12,12 +12,12 @@ export default function ToolCard({ tool }: ToolCardProps) {
   return (
     <Link
       to={tool.path}
-      className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-200 hover:border-blue-400"
+      className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 hover:border-primary-400"
     >
       <div className="flex items-start justify-between mb-3">
         <span className="text-3xl">{category.icon}</span>
         {tool.featured && (
-          <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+          <span className="bg-primary-100 text-primary-800 text-xs font-semibold px-2.5 py-0.5 rounded">
             Featured
           </span>
         )}
@@ -31,7 +31,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
         <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
           {category.name}
         </span>
-        <span className="text-blue-600 text-sm font-medium hover:text-blue-700">
+        <span className="text-primary-600 text-sm font-medium hover:text-primary-700">
           Use Tool →
         </span>
       </div>
