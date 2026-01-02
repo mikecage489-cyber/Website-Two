@@ -1,31 +1,37 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import SearchDropdown from '../search/SearchDropdown';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 gap-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-blue-600">🛠️</span>
-            <span className="text-xl font-bold text-gray-900">Helpful Tools</span>
+          <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
+            <span className="text-2xl font-bold text-primary-600">🛠️</span>
+            <span className="text-xl font-bold text-gray-900 hidden sm:inline">Helpful Tools</span>
           </Link>
 
+          {/* Search Bar (Desktop & Tablet) */}
+          <div className="hidden md:flex flex-1 max-w-2xl">
+            <SearchDropdown />
+          </div>
+
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-blue-600 transition-colors">
+          <div className="hidden md:flex items-center space-x-6 flex-shrink-0">
+            <Link to="/" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
               Home
             </Link>
-            <Link to="/tools" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link to="/tools" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
               All Tools
             </Link>
-            <Link to="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link to="/about" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
               About
             </Link>
-            <Link to="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link to="/contact" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
               Contact
             </Link>
           </div>
@@ -33,7 +39,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+            className="md:hidden p-2 rounded-md text-gray-700 hover:text-primary-600 hover:bg-gray-100"
             aria-label="Toggle mobile menu"
           >
             <svg
@@ -56,32 +62,38 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
+          <div className="md:hidden py-4 border-t border-gray-200 space-y-4">
+            {/* Mobile Search */}
+            <div className="pb-4">
+              <SearchDropdown />
+            </div>
+            
+            {/* Mobile Navigation Links */}
             <div className="flex flex-col space-y-4">
               <Link
                 to="/"
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-primary-600 transition-colors font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
               </Link>
               <Link
                 to="/tools"
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-primary-600 transition-colors font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 All Tools
               </Link>
               <Link
                 to="/about"
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-primary-600 transition-colors font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 About
               </Link>
               <Link
                 to="/contact"
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-primary-600 transition-colors font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact

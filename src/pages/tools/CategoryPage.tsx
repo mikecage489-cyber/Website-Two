@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import SEO from '../../components/seo/SEO';
 import ToolCard from '../../components/common/ToolCard';
+import CategoryIcon from '../../components/common/CategoryIcon';
 import Ad from '../../components/ads/Ad';
 import { getToolsByCategory, categoryInfo } from '../../config/tools';
 import type { ToolCategory } from '../../types';
@@ -12,7 +13,7 @@ export default function CategoryPage() {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Category Not Found</h1>
-        <Link to="/tools" className="text-blue-600 hover:text-blue-700">
+        <Link to="/tools" className="text-primary-600 hover:text-primary-700">
           View all tools
         </Link>
       </div>
@@ -33,7 +34,9 @@ export default function CategoryPage() {
       <div className="bg-gray-50 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="mb-8">
-            <div className="text-5xl mb-4">{category.icon}</div>
+            <div className="text-primary-600 mb-4">
+              <CategoryIcon iconName={category.icon} className="w-16 h-16" />
+            </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">{category.name}</h1>
             <p className="text-xl text-gray-600">{category.description}</p>
           </div>

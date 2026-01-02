@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import SEO from '../../components/seo/SEO';
 import Ad from '../../components/ads/Ad';
 import ToolCard from '../../components/common/ToolCard';
+import CategoryIcon from '../../components/common/CategoryIcon';
 import { getToolById, getRelatedTools, categoryInfo } from '../../config/tools';
 
 // Import all tool components
@@ -442,7 +443,7 @@ export default function ToolPage() {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Tool Not Found</h1>
-        <Link to="/tools" className="text-blue-600 hover:text-blue-700">View all tools</Link>
+        <Link to="/tools" className="text-primary-600 hover:text-primary-700">View all tools</Link>
       </div>
     );
   }
@@ -455,7 +456,7 @@ export default function ToolPage() {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Tool Not Found</h1>
-        <Link to="/tools" className="text-blue-600 hover:text-blue-700">View all tools</Link>
+        <Link to="/tools" className="text-primary-600 hover:text-primary-700">View all tools</Link>
       </div>
     );
   }
@@ -500,9 +501,9 @@ export default function ToolPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Breadcrumb */}
           <nav className="mb-6 text-sm">
-            <Link to="/" className="text-blue-600 hover:text-blue-700">Home</Link>
+            <Link to="/" className="text-primary-600 hover:text-primary-700">Home</Link>
             <span className="mx-2 text-gray-400">/</span>
-            <Link to={`/category/${tool.category}`} className="text-blue-600 hover:text-blue-700">
+            <Link to={`/category/${tool.category}`} className="text-primary-600 hover:text-primary-700">
               {category.name}
             </Link>
             <span className="mx-2 text-gray-400">/</span>
@@ -512,7 +513,9 @@ export default function ToolPage() {
           {/* Header */}
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-5xl">{category.icon}</span>
+              <div className="text-primary-600">
+                <CategoryIcon iconName={category.icon} className="w-12 h-12" />
+              </div>
               <h1 className="text-4xl font-bold text-gray-900">{tool.name}</h1>
             </div>
             <p className="text-xl text-gray-600">{tool.description}</p>
