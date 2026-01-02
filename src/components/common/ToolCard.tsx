@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { Tool } from '../../types';
 import { categoryInfo } from '../../config/tools';
+import CategoryIcon from './CategoryIcon';
 
 interface ToolCardProps {
   tool: Tool;
@@ -15,7 +16,9 @@ export default function ToolCard({ tool }: ToolCardProps) {
       className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 hover:border-primary-400"
     >
       <div className="flex items-start justify-between mb-3">
-        <span className="text-3xl">{category.icon}</span>
+        <div className="text-primary-600">
+          <CategoryIcon iconName={category.icon} />
+        </div>
         {tool.featured && (
           <span className="bg-primary-100 text-primary-800 text-xs font-semibold px-2.5 py-0.5 rounded">
             Featured

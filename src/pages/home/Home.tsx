@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import SEO from '../../components/seo/SEO';
 import ToolCard from '../../components/common/ToolCard';
+import CategoryIcon from '../../components/common/CategoryIcon';
 import Ad from '../../components/ads/Ad';
 import { getFeaturedTools, categoryInfo } from '../../config/tools';
 
@@ -76,7 +77,9 @@ export default function Home() {
                 to={`/category/${category.id}`}
                 className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 hover:border-primary-400"
               >
-                <div className="text-4xl mb-4">{category.icon}</div>
+                <div className="text-primary-600 mb-4">
+                  <CategoryIcon iconName={category.icon} className="w-12 h-12" />
+                </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
                   {category.name}
                 </h3>

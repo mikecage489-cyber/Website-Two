@@ -30,7 +30,7 @@ export interface CategoryInfo {
   id: ToolCategory;
   name: string;
   description: string;
-  icon: string;
+  icon: string; // Now stores the icon name for lucide-react
 }
 
 export interface SEOData {

@@ -5,31 +5,31 @@ export const categoryInfo: Record<ToolCategory, CategoryInfo> = {
     id: 'text-tools',
     name: 'Text Tools',
     description: 'Powerful text manipulation tools for everyday use',
-    icon: '📝'
+    icon: 'Type'
   },
   'calculator-tools': {
     id: 'calculator-tools',
     name: 'Calculator Tools',
     description: 'Simple and accurate calculators for various needs',
-    icon: '🧮'
+    icon: 'Calculator'
   },
   'converter-tools': {
     id: 'converter-tools',
     name: 'Converter Tools',
     description: 'Convert between different units and formats',
-    icon: '🔄'
+    icon: 'RefreshCw'
   },
   'developer-tools': {
     id: 'developer-tools',
     name: 'Developer Tools',
     description: 'Essential tools for developers',
-    icon: '💻'
+    icon: 'Code'
   },
   'seo-tools': {
     id: 'seo-tools',
     name: 'SEO Tools',
     description: 'Optimize your website for search engines',
-    icon: '🔍'
+    icon: 'Search'
   }
 };
 

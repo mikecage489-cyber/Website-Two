@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import SEO from '../../components/seo/SEO';
 import Ad from '../../components/ads/Ad';
 import ToolCard from '../../components/common/ToolCard';
+import CategoryIcon from '../../components/common/CategoryIcon';
 import { getToolById, getRelatedTools, categoryInfo } from '../../config/tools';
 
 // Import all tool components
@@ -512,7 +513,9 @@ export default function ToolPage() {
           {/* Header */}
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-5xl">{category.icon}</span>
+              <div className="text-primary-600">
+                <CategoryIcon iconName={category.icon} className="w-12 h-12" />
+              </div>
               <h1 className="text-4xl font-bold text-gray-900">{tool.name}</h1>
             </div>
             <p className="text-xl text-gray-600">{tool.description}</p>
