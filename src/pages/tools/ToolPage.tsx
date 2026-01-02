@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import SEO from '../../components/seo/SEO';
+import { WebApplicationSchema, BreadcrumbSchema, FAQSchema } from '../../components/seo/SchemaMarkup';
 import Ad from '../../components/ads/Ad';
 import ToolCard from '../../components/common/ToolCard';
 import CategoryIcon from '../../components/common/CategoryIcon';
@@ -464,29 +465,15 @@ export default function ToolPage() {
   const relatedTools = getRelatedTools(toolId);
   const category = categoryInfo[tool.category];
 
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
-    name: tool.name,
-    description: tool.description,
-    applicationCategory: 'UtilityApplication',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD'
-    },
-    mainEntity: {
-      '@type': 'FAQPage',
-      mainEntity: content.faqs.map(faq => ({
-        '@type': 'Question',
-        name: faq.q,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: faq.a
-        }
-      }))
-    }
-  };
+  const baseUrl = window.location.origin;
+  const toolUrl = `${baseUrl}${tool.path}`;
+
+  // Breadcrumb data
+  const breadcrumbItems = [
+    { name: 'Home', url: '/' },
+    { name: category.name, url: `/category/${tool.category}` },
+    { name: tool.name, url: tool.path }
+  ];
 
   return (
     <>
@@ -494,8 +481,32 @@ export default function ToolPage() {
         title={`${tool.name} - Free Online Tool`}
         description={tool.description}
         keywords={tool.keywords}
-        structuredData={structuredData}
+        canonicalUrl={toolUrl}
       />
+      
+      {/* Schema Markup */}
+      <WebApplicationSchema
+        name={tool.name}
+        url={toolUrl}
+        description={tool.description}
+        featureList={[
+          'Free to use',
+          'No registration required',
+          'Works offline',
+          'Fast and secure'
+        ]}
+      />
+      
+      <BreadcrumbSchema items={breadcrumbItems} />
+      
+      {content.faqs && content.faqs.length > 0 && (
+        <FAQSchema 
+          questions={content.faqs.map(faq => ({
+            question: faq.q,
+            answer: faq.a
+          }))}
+        />
+      )}
 
       <div className="bg-gray-50 min-h-screen">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

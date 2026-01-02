@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import SearchDropdown from '../search/SearchDropdown';
+import ToolsDropdown from './ToolsDropdown';
+import { ChevronDown } from 'lucide-react';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between items-center h-16 gap-4">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
@@ -25,6 +28,21 @@ export default function Header() {
             <Link to="/" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
               Home
             </Link>
+            <div 
+              className="relative"
+              onMouseEnter={() => setToolsDropdownOpen(true)}
+              onMouseLeave={() => setToolsDropdownOpen(false)}
+            >
+              <button 
+                className="flex items-center gap-1 text-gray-700 hover:text-primary-600 transition-colors font-medium"
+                onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
+                aria-expanded={toolsDropdownOpen}
+                aria-haspopup="true"
+              >
+                Tools
+                <ChevronDown className={`w-4 h-4 transition-transform ${toolsDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+            </div>
             <Link to="/tools" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
               All Tools
             </Link>
@@ -77,6 +95,24 @@ export default function Header() {
               >
                 Home
               </Link>
+              <div className="space-y-2">
+                <button
+                  onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
+                  className="flex items-center justify-between w-full text-gray-700 hover:text-primary-600 transition-colors font-medium"
+                  aria-expanded={toolsDropdownOpen}
+                >
+                  Tools
+                  <ChevronDown className={`w-4 h-4 transition-transform ${toolsDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <ToolsDropdown 
+                  isOpen={toolsDropdownOpen} 
+                  onClose={() => {
+                    setToolsDropdownOpen(false);
+                    setMobileMenuOpen(false);
+                  }}
+                  isMobile={true}
+                />
+              </div>
               <Link
                 to="/tools"
                 className="text-gray-700 hover:text-primary-600 transition-colors font-medium"
@@ -102,6 +138,13 @@ export default function Header() {
           </div>
         )}
       </nav>
+      
+      {/* Desktop Tools Dropdown - Rendered outside nav for proper positioning */}
+      <ToolsDropdown 
+        isOpen={toolsDropdownOpen} 
+        onClose={() => setToolsDropdownOpen(false)}
+        isMobile={false}
+      />
     </header>
   );
 }

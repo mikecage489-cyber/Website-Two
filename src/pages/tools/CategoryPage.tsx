@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import SEO from '../../components/seo/SEO';
+import { BreadcrumbSchema } from '../../components/seo/SchemaMarkup';
 import ToolCard from '../../components/common/ToolCard';
 import CategoryIcon from '../../components/common/CategoryIcon';
 import Ad from '../../components/ads/Ad';
@@ -23,13 +24,21 @@ export default function CategoryPage() {
   const category = categoryInfo[categoryId as keyof typeof categoryInfo];
   const categoryTools = getToolsByCategory(categoryId as ToolCategory);
 
+  const breadcrumbItems = [
+    { name: 'Home', url: '/' },
+    { name: category.name, url: `/category/${categoryId}` }
+  ];
+
   return (
     <>
       <SEO
         title={`${category.name} - Helpful Tools`}
         description={`${category.description}. Browse our collection of ${categoryTools.length} ${category.name.toLowerCase()}.`}
         keywords={[category.name.toLowerCase(), 'online tools', 'free tools']}
+        canonicalUrl={`${window.location.origin}/category/${categoryId}`}
       />
+      
+      <BreadcrumbSchema items={breadcrumbItems} />
 
       <div className="bg-gray-50 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
