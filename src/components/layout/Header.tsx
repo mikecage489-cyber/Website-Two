@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import SearchDropdown from '../search/SearchDropdown';
 import ToolsDropdown from './ToolsDropdown';
 import { ChevronDown } from 'lucide-react';
@@ -7,6 +7,32 @@ import { ChevronDown } from 'lucide-react';
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
+  const timeoutRef = useRef<number | null>(null);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Handle mouse enter with immediate open and clear any pending close
+  const handleToolsMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setToolsDropdownOpen(true);
+  };
+
+  // Handle mouse leave with delay before closing
+  const handleToolsMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setToolsDropdownOpen(false);
+    }, 300);
+  };
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
@@ -30,8 +56,8 @@ export default function Header() {
             </Link>
             <div 
               className="relative"
-              onMouseEnter={() => setToolsDropdownOpen(true)}
-              onMouseLeave={() => setToolsDropdownOpen(false)}
+              onMouseEnter={handleToolsMouseEnter}
+              onMouseLeave={handleToolsMouseLeave}
             >
               <button 
                 className="font-heading flex items-center gap-1 text-gray-700 hover:text-primary-600 transition-colors font-medium"
@@ -42,6 +68,18 @@ export default function Header() {
                 Tools
                 <ChevronDown className={`w-4 h-4 transition-transform ${toolsDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
+              
+              {/* Desktop Tools Dropdown - Positioned within hover container */}
+              <div
+                onMouseEnter={handleToolsMouseEnter}
+                onMouseLeave={handleToolsMouseLeave}
+              >
+                <ToolsDropdown 
+                  isOpen={toolsDropdownOpen} 
+                  onClose={() => setToolsDropdownOpen(false)}
+                  isMobile={false}
+                />
+              </div>
             </div>
             <Link to="/tools" className="font-heading text-gray-700 hover:text-primary-600 transition-colors font-medium">
               All Tools
@@ -138,13 +176,6 @@ export default function Header() {
           </div>
         )}
       </nav>
-      
-      {/* Desktop Tools Dropdown - Rendered outside nav for proper positioning */}
-      <ToolsDropdown 
-        isOpen={toolsDropdownOpen} 
-        onClose={() => setToolsDropdownOpen(false)}
-        isMobile={false}
-      />
     </header>
   );
 }
