@@ -27,18 +27,18 @@ export default function Home() {
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+          <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
             🛠️ Helpful Tools
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-primary-100">
+          <p className="text-xl md:text-2xl font-sans mb-8 text-primary-100">
             Free, Fast, and Useful Online Tools for Everyone
           </p>
-          <p className="text-lg mb-8 max-w-2xl mx-auto">
+          <p className="text-lg font-sans mb-8 max-w-2xl mx-auto">
             Access powerful online tools that work entirely in your browser. No registration required, completely free, and always available.
           </p>
           <Link
             to="/tools"
-            className="inline-block bg-white text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors shadow-lg"
+            className="inline-block bg-white text-primary-600 px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-50 transition-colors shadow-lg"
           >
             Browse All Tools
           </Link>
@@ -50,7 +50,7 @@ export default function Home() {
       {/* Featured Tools */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          <h2 className="text-3xl font-heading font-bold text-gray-900 mb-8 text-center">
             Featured Tools
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -66,7 +66,7 @@ export default function Home() {
       {/* Tool Categories */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          <h2 className="text-3xl font-heading font-bold text-gray-900 mb-8 text-center">
             Tool Categories
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -79,10 +79,10 @@ export default function Home() {
                 <div className="text-primary-600 mb-4">
                   <CategoryIcon iconName={category.icon} className="w-12 h-12" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                <h3 className="text-xl font-heading font-bold text-gray-900 mb-2">
                   {category.name}
                 </h3>
-                <p className="text-gray-600 text-sm">{category.description}</p>
+                <p className="text-gray-600 font-sans text-sm">{category.description}</p>
               </Link>
             ))}
           </div>
@@ -92,29 +92,29 @@ export default function Home() {
       {/* Why Choose Us */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
+          <h2 className="text-3xl font-heading font-bold text-gray-900 mb-12 text-center">
             Why Choose Our Tools?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="text-4xl mb-4">🚀</div>
-              <h3 className="text-xl font-semibold mb-2">Fast & Efficient</h3>
-              <p className="text-gray-600">Lightning-fast tools that work instantly in your browser</p>
+              <h3 className="text-xl font-heading font-semibold mb-2">Fast & Efficient</h3>
+              <p className="text-gray-600 font-sans">Lightning-fast tools that work instantly in your browser</p>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-4">🔒</div>
-              <h3 className="text-xl font-semibold mb-2">Secure & Private</h3>
-              <p className="text-gray-600">All processing happens locally - your data never leaves your device</p>
+              <h3 className="text-xl font-heading font-semibold mb-2">Secure & Private</h3>
+              <p className="text-gray-600 font-sans">All processing happens locally - your data never leaves your device</p>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-4">💯</div>
-              <h3 className="text-xl font-semibold mb-2">100% Free</h3>
-              <p className="text-gray-600">No hidden fees, no registration required, always free</p>
+              <h3 className="text-xl font-heading font-semibold mb-2">100% Free</h3>
+              <p className="text-gray-600 font-sans">No hidden fees, no registration required, always free</p>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-4">📱</div>
-              <h3 className="text-xl font-semibold mb-2">Mobile Friendly</h3>
-              <p className="text-gray-600">Works perfectly on desktop, tablet, and mobile devices</p>
+              <h3 className="text-xl font-heading font-semibold mb-2">Mobile Friendly</h3>
+              <p className="text-gray-600 font-sans">Works perfectly on desktop, tablet, and mobile devices</p>
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
             <span className="text-2xl font-bold text-primary-600">🛠️</span>
-            <span className="text-xl font-bold text-gray-900 hidden sm:inline">Helpful Tools</span>
+            <span className="text-xl font-heading font-bold text-gray-900 hidden sm:inline">Helpful Tools</span>
           </Link>
 
           {/* Search Bar (Desktop & Tablet) */}
@@ -25,7 +25,7 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6 flex-shrink-0">
-            <Link to="/" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
+            <Link to="/" className="font-heading text-gray-700 hover:text-primary-600 transition-colors font-medium">
               Home
             </Link>
             <div 
@@ -34,7 +34,7 @@ export default function Header() {
               onMouseLeave={() => setToolsDropdownOpen(false)}
             >
               <button 
-                className="flex items-center gap-1 text-gray-700 hover:text-primary-600 transition-colors font-medium"
+                className="font-heading flex items-center gap-1 text-gray-700 hover:text-primary-600 transition-colors font-medium"
                 onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
                 aria-expanded={toolsDropdownOpen}
                 aria-haspopup="true"
@@ -43,13 +43,13 @@ export default function Header() {
                 <ChevronDown className={`w-4 h-4 transition-transform ${toolsDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
             </div>
-            <Link to="/tools" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
+            <Link to="/tools" className="font-heading text-gray-700 hover:text-primary-600 transition-colors font-medium">
               All Tools
             </Link>
-            <Link to="/about" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
+            <Link to="/about" className="font-heading text-gray-700 hover:text-primary-600 transition-colors font-medium">
               About
             </Link>
-            <Link to="/contact" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
+            <Link to="/contact" className="font-heading text-gray-700 hover:text-primary-600 transition-colors font-medium">
               Contact
             </Link>
           </div>
@@ -90,7 +90,7 @@ export default function Header() {
             <div className="flex flex-col space-y-4">
               <Link
                 to="/"
-                className="text-gray-700 hover:text-primary-600 transition-colors font-medium"
+                className="font-heading text-gray-700 hover:text-primary-600 transition-colors font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
@@ -98,7 +98,7 @@ export default function Header() {
               <div className="space-y-2">
                 <button
                   onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
-                  className="flex items-center justify-between w-full text-gray-700 hover:text-primary-600 transition-colors font-medium"
+                  className="font-heading flex items-center justify-between w-full text-gray-700 hover:text-primary-600 transition-colors font-medium"
                   aria-expanded={toolsDropdownOpen}
                 >
                   Tools
@@ -115,21 +115,21 @@ export default function Header() {
               </div>
               <Link
                 to="/tools"
-                className="text-gray-700 hover:text-primary-600 transition-colors font-medium"
+                className="font-heading text-gray-700 hover:text-primary-600 transition-colors font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 All Tools
               </Link>
               <Link
                 to="/about"
-                className="text-gray-700 hover:text-primary-600 transition-colors font-medium"
+                className="font-heading text-gray-700 hover:text-primary-600 transition-colors font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 About
               </Link>
               <Link
                 to="/contact"
-                className="text-gray-700 hover:text-primary-600 transition-colors font-medium"
+                className="font-heading text-gray-700 hover:text-primary-600 transition-colors font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
