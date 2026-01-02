@@ -13,8 +13,8 @@ export default function CategoryPage() {
   if (!categoryId || !(categoryId in categoryInfo)) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Category Not Found</h1>
-        <Link to="/tools" className="text-primary-600 hover:text-primary-700">
+        <h1 className="text-3xl font-heading font-bold text-gray-900 mb-4">Category Not Found</h1>
+        <Link to="/tools" className="text-primary-600 font-sans hover:text-primary-700">
           View all tools
         </Link>
       </div>
@@ -46,25 +46,25 @@ export default function CategoryPage() {
             <div className="text-primary-600 mb-4">
               <CategoryIcon iconName={category.icon} className="w-16 h-16" />
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">{category.name}</h1>
-            <p className="text-xl text-gray-600 mb-6">{category.description}</p>
+            <h1 className="text-4xl font-heading font-bold text-gray-900 mb-4">{category.name}</h1>
+            <p className="text-xl font-sans text-gray-600 mb-6">{category.description}</p>
             
             {/* Long Description */}
             {category.longDescription && (
               <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-                <p className="text-gray-700 leading-relaxed">{category.longDescription}</p>
+                <p className="text-gray-700 font-sans leading-relaxed">{category.longDescription}</p>
               </div>
             )}
             
             {/* Benefits */}
             {category.benefits && category.benefits.length > 0 && (
               <div className="bg-white rounded-lg shadow-sm p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Why Use Our {category.name}?</h2>
+                <h2 className="text-2xl font-heading font-bold text-gray-900 mb-4">Why Use Our {category.name}?</h2>
                 <ul className="space-y-2">
                   {category.benefits.map((benefit, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <span className="text-primary-600 mt-1">✓</span>
-                      <span className="text-gray-700">{benefit}</span>
+                      <span className="text-gray-700 font-sans">{benefit}</span>
                     </li>
                   ))}
                 </ul>
@@ -74,7 +74,7 @@ export default function CategoryPage() {
 
           <Ad className="mb-8" />
           
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Available {category.name}</h2>
+          <h2 className="text-2xl font-heading font-bold text-gray-900 mb-6">Available {category.name}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categoryTools.map((tool) => (
               <ToolCard key={tool.id} tool={tool} />

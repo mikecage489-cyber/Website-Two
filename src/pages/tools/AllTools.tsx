@@ -30,8 +30,8 @@ export default function AllTools() {
 
       <div className="bg-gray-50 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">All Tools</h1>
-          <p className="text-xl text-gray-600 mb-8">
+          <h1 className="text-4xl font-heading font-bold text-gray-900 mb-4">All Tools</h1>
+          <p className="text-xl font-sans text-gray-600 mb-8">
             Browse our complete collection of {tools.length} free online tools
           </p>
 
@@ -56,8 +56,8 @@ export default function AllTools() {
 
           {categoryFilteredTools.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-xl text-gray-600 mb-2">No tools found</p>
-              <p className="text-gray-500">Try adjusting your search or filter selection</p>
+              <p className="text-xl font-sans text-gray-600 mb-2">No tools found</p>
+              <p className="text-gray-500 font-sans">Try adjusting your search or filter selection</p>
             </div>
           )}
 

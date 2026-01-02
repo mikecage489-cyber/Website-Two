@@ -20,21 +20,21 @@ export default function ToolCard({ tool }: ToolCardProps) {
           <CategoryIcon iconName={category.icon} />
         </div>
         {tool.featured && (
-          <span className="bg-primary-100 text-primary-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+          <span className="bg-primary-100 text-primary-800 text-xs font-heading font-semibold px-2.5 py-0.5 rounded">
             Featured
           </span>
         )}
       </div>
       
-      <h3 className="text-xl font-bold text-gray-900 mb-2">{tool.name}</h3>
+      <h3 className="text-xl font-heading font-bold text-gray-900 mb-2">{tool.name}</h3>
       
-      <p className="text-gray-600 text-sm mb-3">{tool.description}</p>
+      <p className="text-gray-600 font-sans text-sm mb-3">{tool.description}</p>
       
       <div className="flex items-center justify-between">
-        <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+        <span className="text-xs font-sans text-gray-500 bg-gray-100 px-2 py-1 rounded">
           {category.name}
         </span>
-        <span className="text-primary-600 text-sm font-medium hover:text-primary-700">
+        <span className="text-primary-600 font-heading text-sm font-medium hover:text-primary-700">
           Use Tool →
         </span>
       </div>

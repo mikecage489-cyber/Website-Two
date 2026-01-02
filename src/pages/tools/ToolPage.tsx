@@ -511,7 +511,7 @@ export default function ToolPage() {
       <div className="bg-gray-50 min-h-screen">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Breadcrumb */}
-          <nav className="mb-6 text-sm">
+          <nav className="mb-6 text-sm font-sans">
             <Link to="/" className="text-primary-600 hover:text-primary-700">Home</Link>
             <span className="mx-2 text-gray-400">/</span>
             <Link to={`/category/${tool.category}`} className="text-primary-600 hover:text-primary-700">
@@ -527,9 +527,9 @@ export default function ToolPage() {
               <div className="text-primary-600">
                 <CategoryIcon iconName={category.icon} className="w-12 h-12" />
               </div>
-              <h1 className="text-4xl font-bold text-gray-900">{tool.name}</h1>
+              <h1 className="text-4xl font-heading font-bold text-gray-900">{tool.name}</h1>
             </div>
-            <p className="text-xl text-gray-600">{tool.description}</p>
+            <p className="text-xl font-sans text-gray-600">{tool.description}</p>
           </div>
 
           <Ad className="mb-8" />
@@ -543,20 +543,20 @@ export default function ToolPage() {
 
           {/* Instructions */}
           <section className="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">How to Use</h2>
-            <p className="text-gray-700 mb-4">{content.instructions}</p>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Example</h3>
-            <p className="text-gray-700">{content.example}</p>
+            <h2 className="text-2xl font-heading font-bold text-gray-900 mb-4">How to Use</h2>
+            <p className="text-gray-700 font-sans mb-4">{content.instructions}</p>
+            <h3 className="text-xl font-heading font-semibold text-gray-900 mb-2">Example</h3>
+            <p className="text-gray-700 font-sans">{content.example}</p>
           </section>
 
           {/* FAQ */}
           <section className="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-2xl font-heading font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
             <div className="space-y-4">
               {content.faqs.map((faq, index) => (
                 <div key={index}>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.q}</h3>
-                  <p className="text-gray-700">{faq.a}</p>
+                  <h3 className="text-lg font-heading font-semibold text-gray-900 mb-2">{faq.q}</h3>
+                  <p className="text-gray-700 font-sans">{faq.a}</p>
                 </div>
               ))}
             </div>
@@ -567,7 +567,7 @@ export default function ToolPage() {
           {/* Related Tools */}
           {relatedTools.length > 0 && (
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Tools</h2>
+              <h2 className="text-2xl font-heading font-bold text-gray-900 mb-6">Related Tools</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {relatedTools.map((relatedTool) => (
                   <ToolCard key={relatedTool.id} tool={relatedTool} />

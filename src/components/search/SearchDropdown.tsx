@@ -116,7 +116,7 @@ export default function SearchDropdown() {
           onChange={handleInputChange}
           onFocus={() => query && setIsOpen(true)}
           placeholder="Search tools..."
-          className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
+          className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 font-sans text-sm"
         />
         {query && (
           <button
@@ -152,7 +152,7 @@ export default function SearchDropdown() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <h4 className="text-sm font-semibold text-gray-900 truncate">
+                          <h4 className="text-sm font-heading font-semibold text-gray-900 truncate">
                             {tool.name}
                           </h4>
                           {tool.featured && (
@@ -161,10 +161,10 @@ export default function SearchDropdown() {
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-gray-600 truncate mt-0.5">
+                        <p className="text-xs font-sans text-gray-600 truncate mt-0.5">
                           {tool.description}
                         </p>
-                        <span className="text-xs text-gray-500 mt-1 inline-block">
+                        <span className="text-xs font-sans text-gray-500 mt-1 inline-block">
                           {category.name}
                         </span>
                       </div>
@@ -176,8 +176,8 @@ export default function SearchDropdown() {
           ) : (
             <div className="px-4 py-8 text-center text-gray-500">
               <Search className="h-8 w-8 mx-auto mb-2 text-gray-400" />
-              <p className="text-sm">No tools found matching "{query}"</p>
-              <p className="text-xs mt-1">Try different keywords</p>
+              <p className="text-sm font-sans">No tools found matching "{query}"</p>
+              <p className="text-xs font-sans mt-1">Try different keywords</p>
             </div>
           )}
         </div>
