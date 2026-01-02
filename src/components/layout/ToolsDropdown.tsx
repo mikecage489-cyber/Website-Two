@@ -91,153 +91,79 @@ export default function ToolsDropdown({ isOpen, onClose, isMobile = false }: Too
     );
   }
 
-  // Desktop dropdown layout
+  // Desktop dropdown layout - Wide mega menu style
   return (
     <div
       ref={dropdownRef}
-      className="absolute top-full left-0 right-0 mt-2 bg-white shadow-2xl border border-gray-100 rounded-xl z-50 animate-fadeIn overflow-hidden"
+      className="absolute left-1/2 transform -translate-x-1/2 mt-2 bg-white shadow-2xl border border-gray-200 rounded-2xl z-50 animate-fadeIn"
       style={{
-        maxWidth: '1200px',
-        margin: '8px auto 0',
+        width: '95vw',
+        maxWidth: '1400px',
       }}
     >
-      {/* Gradient Header */}
-      <div className="bg-gradient-to-r from-primary-50 to-accent-50 px-6 py-4 border-b border-gray-100">
-        <h3 className="font-heading font-bold text-lg text-gray-900">Explore Our Tools</h3>
-        <p className="font-sans text-sm text-gray-600 mt-1">Choose from our collection of helpful utilities</p>
-      </div>
+      <div className="p-10">
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <h3 className="font-heading font-bold text-2xl text-gray-900 mb-2">Browse Tools by Category</h3>
+          <p className="font-sans text-gray-600">Select a category or tool to get started</p>
+        </div>
 
-      <div className="p-8">
-        <div className="grid grid-cols-3 gap-6">
-          {/* Column 1: Text Tools + Calculator Tools */}
-          <div className="space-y-6">
-            {toolsByCategory.slice(0, 2).map(({ category, tools: categoryTools }) => (
-              <div key={category.id} className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 border border-gray-100 hover:border-primary-200 hover:shadow-md transition-all duration-200">
-                <Link
-                  to={`/category/${category.id}`}
-                  className="flex items-center gap-3 mb-4 font-heading font-bold text-gray-900 hover:text-primary-600 transition-colors group"
-                  onClick={onClose}
-                >
-                  <div className="p-2 bg-primary-100 rounded-lg group-hover:bg-primary-200 transition-colors">
-                    <CategoryIcon iconName={category.icon} className="w-6 h-6 text-primary-600" />
-                  </div>
-                  <span className="text-base">{category.name}</span>
-                </Link>
-                <div className="space-y-1.5 ml-1">
-                  {categoryTools.map(tool => (
-                    <Link
-                      key={tool.id}
-                      to={tool.path}
-                      className="block font-sans text-gray-700 hover:text-primary-600 hover:bg-primary-50 px-3 py-2 rounded-lg transition-all duration-150 text-sm hover:translate-x-1"
-                      onClick={onClose}
-                    >
-                      • {tool.name}
-                    </Link>
-                  ))}
-                  {tools.filter(t => t.category === category.id).length > 5 && (
-                    <Link
-                      to={`/category/${category.id}`}
-                      className="block font-heading text-primary-600 hover:text-primary-700 hover:bg-primary-50 px-3 py-2 rounded-lg transition-all duration-150 text-sm font-semibold mt-2"
-                      onClick={onClose}
-                    >
-                      View all {category.name.toLowerCase()} →
-                    </Link>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Column 2: Converter Tools + Developer Tools */}
-          <div className="space-y-6">
-            {toolsByCategory.slice(2, 4).map(({ category, tools: categoryTools }) => (
-              <div key={category.id} className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 border border-gray-100 hover:border-primary-200 hover:shadow-md transition-all duration-200">
-                <Link
-                  to={`/category/${category.id}`}
-                  className="flex items-center gap-3 mb-4 font-heading font-bold text-gray-900 hover:text-primary-600 transition-colors group"
-                  onClick={onClose}
-                >
-                  <div className="p-2 bg-primary-100 rounded-lg group-hover:bg-primary-200 transition-colors">
-                    <CategoryIcon iconName={category.icon} className="w-6 h-6 text-primary-600" />
-                  </div>
-                  <span className="text-base">{category.name}</span>
-                </Link>
-                <div className="space-y-1.5 ml-1">
-                  {categoryTools.map(tool => (
-                    <Link
-                      key={tool.id}
-                      to={tool.path}
-                      className="block font-sans text-gray-700 hover:text-primary-600 hover:bg-primary-50 px-3 py-2 rounded-lg transition-all duration-150 text-sm hover:translate-x-1"
-                      onClick={onClose}
-                    >
-                      • {tool.name}
-                    </Link>
-                  ))}
-                  {tools.filter(t => t.category === category.id).length > 5 && (
-                    <Link
-                      to={`/category/${category.id}`}
-                      className="block font-heading text-primary-600 hover:text-primary-700 hover:bg-primary-50 px-3 py-2 rounded-lg transition-all duration-150 text-sm font-semibold mt-2"
-                      onClick={onClose}
-                    >
-                      View all {category.name.toLowerCase()} →
-                    </Link>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Column 3: SEO Tools + CTA */}
-          <div className="space-y-6">
-            {toolsByCategory.slice(4, 5).map(({ category, tools: categoryTools }) => (
-              <div key={category.id} className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 border border-gray-100 hover:border-primary-200 hover:shadow-md transition-all duration-200">
-                <Link
-                  to={`/category/${category.id}`}
-                  className="flex items-center gap-3 mb-4 font-heading font-bold text-gray-900 hover:text-primary-600 transition-colors group"
-                  onClick={onClose}
-                >
-                  <div className="p-2 bg-primary-100 rounded-lg group-hover:bg-primary-200 transition-colors">
-                    <CategoryIcon iconName={category.icon} className="w-6 h-6 text-primary-600" />
-                  </div>
-                  <span className="text-base">{category.name}</span>
-                </Link>
-                <div className="space-y-1.5 ml-1">
-                  {categoryTools.map(tool => (
-                    <Link
-                      key={tool.id}
-                      to={tool.path}
-                      className="block font-sans text-gray-700 hover:text-primary-600 hover:bg-primary-50 px-3 py-2 rounded-lg transition-all duration-150 text-sm hover:translate-x-1"
-                      onClick={onClose}
-                    >
-                      • {tool.name}
-                    </Link>
-                  ))}
-                  {tools.filter(t => t.category === category.id).length > 5 && (
-                    <Link
-                      to={`/category/${category.id}`}
-                      className="block font-heading text-primary-600 hover:text-primary-700 hover:bg-primary-50 px-3 py-2 rounded-lg transition-all duration-150 text-sm font-semibold mt-2"
-                      onClick={onClose}
-                    >
-                      View all {category.name.toLowerCase()} →
-                    </Link>
-                  )}
-                </div>
-              </div>
-            ))}
-            
-            {/* View All Tools CTA */}
-            <div className="bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
-              <h4 className="font-heading font-bold text-lg mb-2">Discover More</h4>
-              <p className="font-sans text-sm text-white/90 mb-4">Browse our complete collection of productivity tools</p>
+        {/* Categories Grid - 5 columns for better spread */}
+        <div className="grid grid-cols-5 gap-8 mb-8">
+          {toolsByCategory.map(({ category, tools: categoryTools }) => (
+            <div key={category.id} className="space-y-4">
+              {/* Category Header */}
               <Link
-                to="/tools"
-                className="flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-primary-600 rounded-lg hover:bg-gray-50 transition-all duration-200 font-heading font-semibold shadow-md hover:shadow-lg"
+                to={`/category/${category.id}`}
+                className="flex flex-col items-center gap-3 p-4 bg-gradient-to-br from-primary-50 to-primary-100 rounded-xl hover:from-primary-100 hover:to-primary-200 transition-all duration-200 group"
                 onClick={onClose}
               >
-                View All Tools →
+                <div className="p-3 bg-white rounded-xl shadow-sm group-hover:shadow-md transition-shadow">
+                  <CategoryIcon iconName={category.icon} className="w-8 h-8 text-primary-600" />
+                </div>
+                <span className="font-heading font-bold text-center text-gray-900 group-hover:text-primary-600 transition-colors">
+                  {category.name}
+                </span>
               </Link>
+
+              {/* Tool Links */}
+              <div className="space-y-1">
+                {categoryTools.map(tool => (
+                  <Link
+                    key={tool.id}
+                    to={tool.path}
+                    className="block px-3 py-2 text-sm font-sans text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+                    onClick={onClose}
+                  >
+                    {tool.name}
+                  </Link>
+                ))}
+                {tools.filter(t => t.category === category.id).length > 5 && (
+                  <Link
+                    to={`/category/${category.id}`}
+                    className="block px-3 py-2 text-sm font-heading font-semibold text-primary-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-colors"
+                    onClick={onClose}
+                  >
+                    View all →
+                  </Link>
+                )}
+              </div>
             </div>
-          </div>
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="pt-8 border-t border-gray-200 text-center">
+          <Link
+            to="/tools"
+            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-primary-600 to-accent-500 text-white font-heading font-semibold rounded-xl hover:from-primary-700 hover:to-accent-600 transition-all duration-200 shadow-lg hover:shadow-xl"
+            onClick={onClose}
+          >
+            Browse All Tools
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </Link>
         </div>
       </div>
     </div>
