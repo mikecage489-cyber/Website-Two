@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import emailjs from '@emailjs/browser';
-import { Mail, User, MessageSquare, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, User, MessageSquare, Send, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import SEO from '../../components/seo/SEO';
 
 interface FormData {
@@ -33,6 +33,10 @@ export default function Contact() {
       ...prev,
       [name]: value
     }));
+    // Clear error when user starts typing
+    if (status.type === 'error') {
+      setStatus({ type: 'idle', message: '' });
+    }
   };
 
   const validateForm = (): boolean => {
@@ -77,17 +81,22 @@ export default function Contact() {
     });
 
     try {
-      await emailjs.send(
-        'service_h5ti20o',      // Service ID
-        'template_d2nurzs',     // Template ID
+      // Initialize EmailJS
+      emailjs.init('rRIWZO-yU_CO3B6TV');
+
+      const result = await emailjs.send(
+        'service_h5ti20o',
+        'template_d2nurzs',
         {
           from_name: formData.from_name,
           from_email: formData.from_email,
           message: formData.message,
-          to_name: 'Website Admin',
+          to_name: 'Support Team',
         },
-        'rRIWZO-yU_CO3B6TV'     // Public Key
+        'rRIWZO-yU_CO3B6TV'
       );
+
+      console.log('✅ EmailJS Success:', result);
 
       setStatus({
         type: 'success',
@@ -101,15 +110,19 @@ export default function Contact() {
         message: ''
       });
 
-      // Clear success message after 5 seconds
+      // Clear success message after 8 seconds
       setTimeout(() => {
         setStatus({ type: 'idle', message: '' });
-      }, 5000);
+      }, 8000);
 
-    } catch {
+    } catch (error: unknown) {
+      console.error('❌ EmailJS Error:', error);
+      const errorMessage = error && typeof error === 'object' && 'text' in error 
+        ? (error as { text: string }).text 
+        : 'Please try again or email us directly.';
       setStatus({
         type: 'error',
-        message: 'Oops! Something went wrong. Please try again or email us directly.'
+        message: `Failed to send message: ${errorMessage}`
       });
     }
   };
@@ -149,7 +162,8 @@ export default function Contact() {
                   value={formData.from_name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors font-sans"
+                  disabled={status.type === 'loading'}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors font-sans disabled:bg-gray-100 disabled:cursor-not-allowed"
                   placeholder="John Doe"
                 />
               </div>
@@ -167,7 +181,8 @@ export default function Contact() {
                   value={formData.from_email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors font-sans"
+                  disabled={status.type === 'loading'}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors font-sans disabled:bg-gray-100 disabled:cursor-not-allowed"
                   placeholder="john@example.com"
                 />
               </div>
@@ -185,7 +200,8 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors font-sans resize-none"
+                  disabled={status.type === 'loading'}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors font-sans resize-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                   placeholder="Tell us what's on your mind..."
                 />
               </div>
@@ -193,7 +209,7 @@ export default function Contact() {
               {/* Status Messages */}
               {status.type !== 'idle' && (
                 <div
-                  className={`flex items-start p-4 rounded-lg ${
+                  className={`flex items-start p-4 rounded-lg animate-fadeIn ${
                     status.type === 'success'
                       ? 'bg-green-50 border border-green-200'
                       : status.type === 'error'
@@ -206,6 +222,9 @@ export default function Contact() {
                   )}
                   {status.type === 'error' && (
                     <AlertCircle className="w-5 h-5 text-red-600 mr-3 flex-shrink-0 mt-0.5" />
+                  )}
+                  {status.type === 'loading' && (
+                    <Loader className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0 mt-0.5 animate-spin" />
                   )}
                   <p
                     className={`font-sans text-sm ${
@@ -225,18 +244,15 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={status.type === 'loading'}
-                className={`w-full font-heading font-semibold px-6 py-4 rounded-lg transition-all duration-200 flex items-center justify-center ${
+                className={`w-full font-heading font-semibold px-6 py-4 rounded-lg transition-all duration-200 flex items-center justify-center text-lg ${
                   status.type === 'loading'
                     ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-primary-600 to-accent-500 hover:from-primary-700 hover:to-accent-600 text-white shadow-lg hover:shadow-xl'
+                    : 'bg-gradient-to-r from-primary-600 to-accent-500 hover:from-primary-700 hover:to-accent-600 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
                 }`}
               >
                 {status.type === 'loading' ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
+                    <Loader className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
                     Sending...
                   </>
                 ) : (
@@ -252,8 +268,8 @@ export default function Contact() {
           {/* Additional Contact Info */}
           <div className="mt-8 text-center">
             <p className="font-sans text-gray-600">
-              Or reach out to us at:{' '}
-              <a href="mailto:support@helpfultools.com" className="text-primary-600 hover:text-primary-700 font-medium">
+              Or email us directly at:{' '}
+              <a href="mailto:support@helpfultools.com" className="text-primary-600 hover:text-primary-700 font-medium underline">
                 support@helpfultools.com
               </a>
             </p>
