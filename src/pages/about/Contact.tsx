@@ -77,7 +77,7 @@ export default function Contact() {
     });
 
     try {
-      const result = await emailjs.send(
+      await emailjs.send(
         'service_h5ti20o',      // Service ID
         'template_d2nurzs',     // Template ID
         {
@@ -88,8 +88,6 @@ export default function Contact() {
         },
         'rRIWZO-yU_CO3B6TV'     // Public Key
       );
-
-      console.log('EmailJS Success:', result);
 
       setStatus({
         type: 'success',
@@ -108,8 +106,7 @@ export default function Contact() {
         setStatus({ type: 'idle', message: '' });
       }, 5000);
 
-    } catch (error) {
-      console.error('EmailJS Error:', error);
+    } catch {
       setStatus({
         type: 'error',
         message: 'Oops! Something went wrong. Please try again or email us directly.'
