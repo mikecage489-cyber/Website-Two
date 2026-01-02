@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import SearchDropdown from '../search/SearchDropdown';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -7,15 +8,20 @@ export default function Header() {
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 gap-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
             <span className="text-2xl font-bold text-primary-600">🛠️</span>
-            <span className="text-xl font-bold text-gray-900">Helpful Tools</span>
+            <span className="text-xl font-bold text-gray-900 hidden sm:inline">Helpful Tools</span>
           </Link>
 
+          {/* Search Bar (Desktop & Tablet) */}
+          <div className="hidden md:flex flex-1 max-w-2xl">
+            <SearchDropdown />
+          </div>
+
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6 flex-shrink-0">
             <Link to="/" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
               Home
             </Link>
@@ -56,7 +62,13 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
+          <div className="md:hidden py-4 border-t border-gray-200 space-y-4">
+            {/* Mobile Search */}
+            <div className="pb-4">
+              <SearchDropdown />
+            </div>
+            
+            {/* Mobile Navigation Links */}
             <div className="flex flex-col space-y-4">
               <Link
                 to="/"
