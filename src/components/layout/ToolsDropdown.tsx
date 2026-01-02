@@ -98,7 +98,7 @@ export default function ToolsDropdown({ isOpen, onClose, isMobile = false }: Too
     );
   }
 
-  // Desktop dropdown layout - NEW DESIGN
+  // Desktop dropdown layout - HORIZONTAL DESIGN
   return (
     <div
       ref={dropdownRef}
@@ -110,178 +110,54 @@ export default function ToolsDropdown({ isOpen, onClose, isMobile = false }: Too
         width: '95vw',
       }}
     >
-      <div className="p-8">
-        {/* Grid Layout - 3 columns */}
-        <div className="grid grid-cols-3 gap-8">
-          {/* Column 1: Text Tools */}
-          <div className="space-y-3">
-            <Link
-              to="/category/text-tools"
-              className="flex items-center gap-2 font-heading font-semibold text-gray-900 hover:text-primary-600 transition-colors text-base mb-4"
-              onClick={onClose}
-            >
-              <CategoryIcon iconName={categoryInfo['text-tools'].icon} className="w-5 h-5 text-primary-600" />
-              <span>Text Tools</span>
-            </Link>
-            <div className="space-y-2">
-              {tools.filter(t => t.category === 'text-tools').slice(0, 6).map(tool => (
-                <Link
-                  key={tool.id}
-                  to={tool.path}
-                  className="block font-sans text-gray-600 hover:text-primary-600 transition-colors text-sm py-1"
-                  onClick={onClose}
-                >
-                  {tool.name}
-                </Link>
-              ))}
+      <div className="p-6">
+        {/* Grid Layout - 5 columns (all categories horizontally) */}
+        <div className="grid grid-cols-5 gap-6">
+          {toolsByCategory.map(({ category, categoryId, tools: categoryTools }) => (
+            <div key={category.id} className="space-y-3">
+              {/* Category Header */}
               <Link
-                to="/category/text-tools"
-                className="flex items-center gap-1 font-sans text-primary-600 hover:text-primary-700 transition-colors text-sm font-medium pt-2"
+                to={`/category/${categoryId}`}
+                className="flex items-center gap-2 font-heading font-semibold text-gray-900 hover:text-primary-600 transition-colors text-sm mb-3"
                 onClick={onClose}
               >
-                View all <ArrowRight className="w-3 h-3" />
+                <CategoryIcon iconName={category.icon} className="w-4 h-4 text-primary-600" />
+                <span>{category.name}</span>
               </Link>
-            </div>
-          </div>
 
-          {/* Column 2: Converter Tools */}
-          <div className="space-y-3">
-            <Link
-              to="/category/converter-tools"
-              className="flex items-center gap-2 font-heading font-semibold text-gray-900 hover:text-primary-600 transition-colors text-base mb-4"
-              onClick={onClose}
-            >
-              <CategoryIcon iconName={categoryInfo['converter-tools'].icon} className="w-5 h-5 text-primary-600" />
-              <span>Converter Tools</span>
-            </Link>
-            <div className="space-y-2">
-              {tools.filter(t => t.category === 'converter-tools').slice(0, 6).map(tool => (
+              {/* Tool Links - Show 5 tools per category */}
+              <div className="space-y-2">
+                {categoryTools.slice(0, 5).map(tool => (
+                  <Link
+                    key={tool.id}
+                    to={tool.path}
+                    className="block font-sans text-gray-600 hover:text-primary-600 transition-colors text-xs py-1"
+                    onClick={onClose}
+                  >
+                    {tool.name}
+                  </Link>
+                ))}
                 <Link
-                  key={tool.id}
-                  to={tool.path}
-                  className="block font-sans text-gray-600 hover:text-primary-600 transition-colors text-sm py-1"
+                  to={`/category/${categoryId}`}
+                  className="flex items-center gap-1 font-sans text-primary-600 hover:text-primary-700 transition-colors text-xs font-medium pt-1"
                   onClick={onClose}
                 >
-                  {tool.name}
+                  View all <ArrowRight className="w-3 h-3" />
                 </Link>
-              ))}
-              <Link
-                to="/category/converter-tools"
-                className="flex items-center gap-1 font-sans text-primary-600 hover:text-primary-700 transition-colors text-sm font-medium pt-2"
-                onClick={onClose}
-              >
-                View all <ArrowRight className="w-3 h-3" />
-              </Link>
+              </div>
             </div>
-          </div>
-
-          {/* Column 3: SEO Tools + View All Tools Button */}
-          <div className="space-y-3">
-            <Link
-              to="/category/seo-tools"
-              className="flex items-center gap-2 font-heading font-semibold text-gray-900 hover:text-primary-600 transition-colors text-base mb-4"
-              onClick={onClose}
-            >
-              <CategoryIcon iconName={categoryInfo['seo-tools'].icon} className="w-5 h-5 text-primary-600" />
-              <span>SEO Tools</span>
-            </Link>
-            <div className="space-y-2 mb-6">
-              {tools.filter(t => t.category === 'seo-tools').slice(0, 4).map(tool => (
-                <Link
-                  key={tool.id}
-                  to={tool.path}
-                  className="block font-sans text-gray-600 hover:text-primary-600 transition-colors text-sm py-1"
-                  onClick={onClose}
-                >
-                  {tool.name}
-                </Link>
-              ))}
-              <Link
-                to="/category/seo-tools"
-                className="flex items-center gap-1 font-sans text-primary-600 hover:text-primary-700 transition-colors text-sm font-medium pt-2"
-                onClick={onClose}
-              >
-                View all <ArrowRight className="w-3 h-3" />
-              </Link>
-            </div>
-            
-            {/* View All Tools Button */}
-            <Link
-              to="/tools"
-              className="block w-full bg-primary-600 hover:bg-primary-700 text-white font-heading font-semibold px-6 py-3 rounded-lg text-center transition-all hover:shadow-lg mt-4"
-              onClick={onClose}
-            >
-              View All Tools
-            </Link>
-          </div>
+          ))}
         </div>
 
-        {/* Second Row: Calculator Tools + Developer Tools */}
-        <div className="grid grid-cols-3 gap-8 mt-8 pt-8 border-t border-gray-100">
-          {/* Calculator Tools */}
-          <div className="space-y-3">
-            <Link
-              to="/category/calculator-tools"
-              className="flex items-center gap-2 font-heading font-semibold text-gray-900 hover:text-primary-600 transition-colors text-base mb-4"
-              onClick={onClose}
-            >
-              <CategoryIcon iconName={categoryInfo['calculator-tools'].icon} className="w-5 h-5 text-primary-600" />
-              <span>Calculator Tools</span>
-            </Link>
-            <div className="space-y-2">
-              {tools.filter(t => t.category === 'calculator-tools').slice(0, 6).map(tool => (
-                <Link
-                  key={tool.id}
-                  to={tool.path}
-                  className="block font-sans text-gray-600 hover:text-primary-600 transition-colors text-sm py-1"
-                  onClick={onClose}
-                >
-                  {tool.name}
-                </Link>
-              ))}
-              <Link
-                to="/category/calculator-tools"
-                className="flex items-center gap-1 font-sans text-primary-600 hover:text-primary-700 transition-colors text-sm font-medium pt-2"
-                onClick={onClose}
-              >
-                View all <ArrowRight className="w-3 h-3" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Developer Tools */}
-          <div className="space-y-3">
-            <Link
-              to="/category/developer-tools"
-              className="flex items-center gap-2 font-heading font-semibold text-gray-900 hover:text-primary-600 transition-colors text-base mb-4"
-              onClick={onClose}
-            >
-              <CategoryIcon iconName={categoryInfo['developer-tools'].icon} className="w-5 h-5 text-primary-600" />
-              <span>Developer Tools</span>
-            </Link>
-            <div className="space-y-2">
-              {tools.filter(t => t.category === 'developer-tools').slice(0, 6).map(tool => (
-                <Link
-                  key={tool.id}
-                  to={tool.path}
-                  className="block font-sans text-gray-600 hover:text-primary-600 transition-colors text-sm py-1"
-                  onClick={onClose}
-                >
-                  {tool.name}
-                </Link>
-              ))}
-              <Link
-                to="/category/developer-tools"
-                className="flex items-center gap-1 font-sans text-primary-600 hover:text-primary-700 transition-colors text-sm font-medium pt-2"
-                onClick={onClose}
-              >
-                View all <ArrowRight className="w-3 h-3" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Empty column for spacing */}
-          <div></div>
+        {/* View All Tools Button */}
+        <div className="mt-6 pt-6 border-t border-gray-100 text-center">
+          <Link
+            to="/tools"
+            className="inline-block px-8 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-heading font-semibold rounded-lg text-sm transition-all hover:shadow-lg"
+            onClick={onClose}
+          >
+            View All Tools
+          </Link>
         </div>
       </div>
     </div>
