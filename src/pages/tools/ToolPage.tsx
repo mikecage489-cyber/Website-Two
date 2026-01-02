@@ -478,8 +478,8 @@ export default function ToolPage() {
   return (
     <>
       <SEO
-        title={`${tool.name} - Free Online Tool`}
-        description={tool.description}
+        title={tool.metaTitle || `${tool.name} - Free Online Tool`}
+        description={tool.metaDescription || tool.description}
         keywords={tool.keywords}
         canonicalUrl={toolUrl}
       />
