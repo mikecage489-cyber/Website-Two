@@ -95,44 +95,52 @@ export default function ToolsDropdown({ isOpen, onClose, isMobile = false }: Too
   return (
     <div
       ref={dropdownRef}
-      className="absolute top-full left-0 right-0 mt-1 bg-white shadow-xl border border-gray-200 rounded-lg z-50 animate-fadeIn"
+      className="absolute top-full left-0 right-0 mt-2 bg-white shadow-2xl border border-gray-100 rounded-xl z-50 animate-fadeIn overflow-hidden"
       style={{
         maxWidth: '1200px',
-        margin: '4px auto 0',
+        margin: '8px auto 0',
       }}
     >
-      <div className="p-6">
-        <div className="grid grid-cols-3 gap-8">
+      {/* Gradient Header */}
+      <div className="bg-gradient-to-r from-primary-50 to-accent-50 px-6 py-4 border-b border-gray-100">
+        <h3 className="font-heading font-bold text-lg text-gray-900">Explore Our Tools</h3>
+        <p className="font-sans text-sm text-gray-600 mt-1">Choose from our collection of helpful utilities</p>
+      </div>
+
+      <div className="p-8">
+        <div className="grid grid-cols-3 gap-6">
           {/* Column 1: Text Tools + Calculator Tools */}
           <div className="space-y-6">
             {toolsByCategory.slice(0, 2).map(({ category, tools: categoryTools }) => (
-              <div key={category.id}>
+              <div key={category.id} className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 border border-gray-100 hover:border-primary-200 hover:shadow-md transition-all duration-200">
                 <Link
                   to={`/category/${category.id}`}
-                  className="flex items-center gap-2 mb-3 font-heading font-semibold text-gray-900 hover:text-primary-600 transition-colors group"
+                  className="flex items-center gap-3 mb-4 font-heading font-bold text-gray-900 hover:text-primary-600 transition-colors group"
                   onClick={onClose}
                 >
-                  <CategoryIcon iconName={category.icon} className="w-5 h-5 text-primary-600 group-hover:text-primary-700" />
-                  <span>{category.name}</span>
+                  <div className="p-2 bg-primary-100 rounded-lg group-hover:bg-primary-200 transition-colors">
+                    <CategoryIcon iconName={category.icon} className="w-6 h-6 text-primary-600" />
+                  </div>
+                  <span className="text-base">{category.name}</span>
                 </Link>
-                <div className="space-y-2">
+                <div className="space-y-1.5 ml-1">
                   {categoryTools.map(tool => (
                     <Link
                       key={tool.id}
                       to={tool.path}
-                      className="block font-sans text-gray-700 hover:text-primary-600 hover:bg-gray-50 px-2 py-1 rounded transition-colors text-sm"
+                      className="block font-sans text-gray-700 hover:text-primary-600 hover:bg-primary-50 px-3 py-2 rounded-lg transition-all duration-150 text-sm hover:translate-x-1"
                       onClick={onClose}
                     >
-                      {tool.name}
+                      • {tool.name}
                     </Link>
                   ))}
                   {tools.filter(t => t.category === category.id).length > 5 && (
                     <Link
                       to={`/category/${category.id}`}
-                      className="block font-heading text-primary-600 hover:text-primary-700 px-2 py-1 transition-colors text-sm font-medium"
+                      className="block font-heading text-primary-600 hover:text-primary-700 hover:bg-primary-50 px-3 py-2 rounded-lg transition-all duration-150 text-sm font-semibold mt-2"
                       onClick={onClose}
                     >
-                      View all →
+                      View all {category.name.toLowerCase()} →
                     </Link>
                   )}
                 </div>
@@ -143,33 +151,35 @@ export default function ToolsDropdown({ isOpen, onClose, isMobile = false }: Too
           {/* Column 2: Converter Tools + Developer Tools */}
           <div className="space-y-6">
             {toolsByCategory.slice(2, 4).map(({ category, tools: categoryTools }) => (
-              <div key={category.id}>
+              <div key={category.id} className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 border border-gray-100 hover:border-primary-200 hover:shadow-md transition-all duration-200">
                 <Link
                   to={`/category/${category.id}`}
-                  className="flex items-center gap-2 mb-3 font-heading font-semibold text-gray-900 hover:text-primary-600 transition-colors group"
+                  className="flex items-center gap-3 mb-4 font-heading font-bold text-gray-900 hover:text-primary-600 transition-colors group"
                   onClick={onClose}
                 >
-                  <CategoryIcon iconName={category.icon} className="w-5 h-5 text-primary-600 group-hover:text-primary-700" />
-                  <span>{category.name}</span>
+                  <div className="p-2 bg-primary-100 rounded-lg group-hover:bg-primary-200 transition-colors">
+                    <CategoryIcon iconName={category.icon} className="w-6 h-6 text-primary-600" />
+                  </div>
+                  <span className="text-base">{category.name}</span>
                 </Link>
-                <div className="space-y-2">
+                <div className="space-y-1.5 ml-1">
                   {categoryTools.map(tool => (
                     <Link
                       key={tool.id}
                       to={tool.path}
-                      className="block font-sans text-gray-700 hover:text-primary-600 hover:bg-gray-50 px-2 py-1 rounded transition-colors text-sm"
+                      className="block font-sans text-gray-700 hover:text-primary-600 hover:bg-primary-50 px-3 py-2 rounded-lg transition-all duration-150 text-sm hover:translate-x-1"
                       onClick={onClose}
                     >
-                      {tool.name}
+                      • {tool.name}
                     </Link>
                   ))}
                   {tools.filter(t => t.category === category.id).length > 5 && (
                     <Link
                       to={`/category/${category.id}`}
-                      className="block font-heading text-primary-600 hover:text-primary-700 px-2 py-1 transition-colors text-sm font-medium"
+                      className="block font-heading text-primary-600 hover:text-primary-700 hover:bg-primary-50 px-3 py-2 rounded-lg transition-all duration-150 text-sm font-semibold mt-2"
                       onClick={onClose}
                     >
-                      View all →
+                      View all {category.name.toLowerCase()} →
                     </Link>
                   )}
                 </div>
@@ -177,50 +187,54 @@ export default function ToolsDropdown({ isOpen, onClose, isMobile = false }: Too
             ))}
           </div>
 
-          {/* Column 3: SEO Tools */}
+          {/* Column 3: SEO Tools + CTA */}
           <div className="space-y-6">
             {toolsByCategory.slice(4, 5).map(({ category, tools: categoryTools }) => (
-              <div key={category.id}>
+              <div key={category.id} className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 border border-gray-100 hover:border-primary-200 hover:shadow-md transition-all duration-200">
                 <Link
                   to={`/category/${category.id}`}
-                  className="flex items-center gap-2 mb-3 font-heading font-semibold text-gray-900 hover:text-primary-600 transition-colors group"
+                  className="flex items-center gap-3 mb-4 font-heading font-bold text-gray-900 hover:text-primary-600 transition-colors group"
                   onClick={onClose}
                 >
-                  <CategoryIcon iconName={category.icon} className="w-5 h-5 text-primary-600 group-hover:text-primary-700" />
-                  <span>{category.name}</span>
+                  <div className="p-2 bg-primary-100 rounded-lg group-hover:bg-primary-200 transition-colors">
+                    <CategoryIcon iconName={category.icon} className="w-6 h-6 text-primary-600" />
+                  </div>
+                  <span className="text-base">{category.name}</span>
                 </Link>
-                <div className="space-y-2">
+                <div className="space-y-1.5 ml-1">
                   {categoryTools.map(tool => (
                     <Link
                       key={tool.id}
                       to={tool.path}
-                      className="block font-sans text-gray-700 hover:text-primary-600 hover:bg-gray-50 px-2 py-1 rounded transition-colors text-sm"
+                      className="block font-sans text-gray-700 hover:text-primary-600 hover:bg-primary-50 px-3 py-2 rounded-lg transition-all duration-150 text-sm hover:translate-x-1"
                       onClick={onClose}
                     >
-                      {tool.name}
+                      • {tool.name}
                     </Link>
                   ))}
                   {tools.filter(t => t.category === category.id).length > 5 && (
                     <Link
                       to={`/category/${category.id}`}
-                      className="block font-heading text-primary-600 hover:text-primary-700 px-2 py-1 transition-colors text-sm font-medium"
+                      className="block font-heading text-primary-600 hover:text-primary-700 hover:bg-primary-50 px-3 py-2 rounded-lg transition-all duration-150 text-sm font-semibold mt-2"
                       onClick={onClose}
                     >
-                      View all →
+                      View all {category.name.toLowerCase()} →
                     </Link>
                   )}
                 </div>
               </div>
             ))}
             
-            {/* View All Tools Link */}
-            <div className="pt-4 border-t border-gray-200">
+            {/* View All Tools CTA */}
+            <div className="bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+              <h4 className="font-heading font-bold text-lg mb-2">Discover More</h4>
+              <p className="font-sans text-sm text-white/90 mb-4">Browse our complete collection of productivity tools</p>
               <Link
                 to="/tools"
-                className="flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-heading font-medium"
+                className="flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-primary-600 rounded-lg hover:bg-gray-50 transition-all duration-200 font-heading font-semibold shadow-md hover:shadow-lg"
                 onClick={onClose}
               >
-                View All Tools
+                View All Tools →
               </Link>
             </div>
           </div>
