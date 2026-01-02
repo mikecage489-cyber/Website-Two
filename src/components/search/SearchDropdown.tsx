@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X } from 'lucide-react';
 import { tools, categoryInfo } from '../../config/tools';
@@ -47,6 +47,24 @@ export default function SearchDropdown() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const handleSelectTool = useCallback((tool: Tool) => {
+    navigate(tool.path);
+    setIsOpen(false);
+    setQuery('');
+    inputRef.current?.blur();
+  }, [navigate]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    setSelectedIndex(0); // Reset selection when query changes
+    setIsOpen(true);
+  };
+
+  const handleClearSearch = () => {
+    setQuery('');
+    inputRef.current?.focus();
+  };
+
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -82,29 +100,7 @@ export default function SearchDropdown() {
       document.addEventListener('keydown', handleKeyDown);
       return () => document.removeEventListener('keydown', handleKeyDown);
     }
-  }, [isOpen, filteredTools, selectedIndex]);
-
-  // Reset selected index when query changes
-  useEffect(() => {
-    setSelectedIndex(0);
-  }, [query]);
-
-  const handleSelectTool = (tool: Tool) => {
-    navigate(tool.path);
-    setIsOpen(false);
-    setQuery('');
-    inputRef.current?.blur();
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-    setIsOpen(true);
-  };
-
-  const handleClearSearch = () => {
-    setQuery('');
-    inputRef.current?.focus();
-  };
+  }, [isOpen, filteredTools, selectedIndex, handleSelectTool]);
 
   return (
     <div ref={searchRef} className="relative w-full max-w-md">
