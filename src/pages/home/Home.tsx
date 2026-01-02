@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import SEO from '../../components/seo/SEO';
+import { OrganizationSchema } from '../../components/seo/SchemaMarkup';
 import ToolCard from '../../components/common/ToolCard';
 import CategoryIcon from '../../components/common/CategoryIcon';
 import Ad from '../../components/ads/Ad';
@@ -8,21 +9,19 @@ import { getFeaturedTools, categoryInfo } from '../../config/tools';
 export default function Home() {
   const featuredTools = getFeaturedTools();
 
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Helpful Tools',
-    description: 'Free online tools to make your work easier',
-    url: window.location.origin,
-  };
-
   return (
     <>
       <SEO
         title="Helpful Tools - Free Online Tools for Everyone"
-        description="Access 10+ free online tools including word counter, calculators, converters, and developer tools. Fast, secure, and always available."
+        description="Access 38+ free online tools including word counter, calculators, converters, and developer tools. Fast, secure, and always available."
         keywords={['online tools', 'free tools', 'web tools', 'calculator', 'converter', 'text tools']}
-        structuredData={structuredData}
+        canonicalUrl={window.location.origin}
+      />
+      
+      <OrganizationSchema
+        name="Helpful Tools"
+        url={window.location.origin}
+        description="Free online tools to make your work easier. Fast, secure, and always available."
       />
 
       {/* Hero Section */}

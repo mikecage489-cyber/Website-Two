@@ -31,6 +31,8 @@ export interface CategoryInfo {
   name: string;
   description: string;
   icon: string; // Now stores the icon name for lucide-react
+  longDescription?: string;
+  benefits?: string[];
 }
 
 export interface SEOData {
