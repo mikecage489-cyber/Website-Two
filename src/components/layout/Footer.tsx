@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="col-span-1">
             <div className="flex items-center space-x-2 mb-4">
               <span className="text-2xl">🛠️</span>
-              <span className="text-xl font-heading font-bold text-white">Helpful Tools</span>
+              <span className="text-xl font-heading font-bold text-white">ToolStack Online</span>
             </div>
             <p className="text-sm font-sans text-gray-400">
               Free online tools to make your work easier. Fast, secure, and always available.
@@ -84,7 +84,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-gray-800 text-center">
           <p className="text-sm font-sans text-gray-400">
-            © {currentYear} Helpful Tools. All rights reserved.
+            © {currentYear} ToolStack Online. All rights reserved.
           </p>
         </div>
       </div>

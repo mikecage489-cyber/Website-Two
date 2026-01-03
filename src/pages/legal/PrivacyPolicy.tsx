@@ -4,7 +4,7 @@ export default function PrivacyPolicy() {
   return (
     <>
       <SEO
-        title="Privacy Policy - Helpful Tools"
+        title="Privacy Policy - ToolStack Online"
         description="Read our privacy policy to understand how we handle your data and protect your privacy while using our free online tools."
       />
 
@@ -18,7 +18,7 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Introduction</h2>
               <p className="text-gray-700 leading-relaxed">
-                At Helpful Tools, we take your privacy seriously. This Privacy Policy explains how
+                At ToolStack Online, we take your privacy seriously. This Privacy Policy explains how
                 we collect, use, and protect your information when you use our website and tools.
               </p>
             </section>

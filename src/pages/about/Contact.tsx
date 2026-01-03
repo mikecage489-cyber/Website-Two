@@ -133,8 +133,9 @@ export default function Contact() {
   return (
     <>
       <SEO
-        title="Contact Us - Helpful Tools"
-        description="Get in touch with us. Send us your questions, feedback, or suggestions and we'll get back to you soon."
+        title="Contact Us - ToolStack Online"
+        description="Get in touch with ToolStack Online. Send us your questions, feedback, or suggestions."
+        canonicalUrl="https://toolstackonline.com/contact"
       />
 
       <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

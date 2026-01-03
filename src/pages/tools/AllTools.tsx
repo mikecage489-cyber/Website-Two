@@ -23,8 +23,9 @@ export default function AllTools() {
   return (
     <>
       <SEO
-        title="All Tools - Helpful Tools"
-        description="Browse our complete collection of free online tools including text tools, calculators, converters, and developer tools."
+        title="All Tools - ToolStack Online"
+        description="Browse all free online tools available on ToolStack Online."
+        canonicalUrl="https://toolstackonline.com/tools"
         keywords={['online tools', 'free tools', 'all tools', 'tool collection']}
       />
 

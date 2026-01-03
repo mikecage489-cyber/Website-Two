@@ -1,6 +1,6 @@
 # How to Add New Tools
 
-This guide explains how to add new tools to the Helpful Tools website. The process is straightforward and follows a consistent pattern.
+This guide explains how to add new tools to the ToolStack Online website. The process is straightforward and follows a consistent pattern.
 
 ## Prerequisites
 

@@ -32,10 +32,10 @@ export default function CategoryPage() {
   return (
     <>
       <SEO
-        title={`${category.name} - Helpful Tools`}
+        title={`${category.name} - ToolStack Online`}
         description={`${category.description}. Browse our collection of ${categoryTools.length} ${category.name.toLowerCase()}.`}
         keywords={[category.name.toLowerCase(), 'online tools', 'free tools']}
-        canonicalUrl={`${window.location.origin}/category/${categoryId}`}
+        canonicalUrl={`https://toolstackonline.com/category/${categoryId}`}
       />
       
       <BreadcrumbSchema items={breadcrumbItems} />

@@ -12,15 +12,15 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Helpful Tools - Free Online Tools for Everyone"
-        description="Access 38+ free online tools including word counter, calculators, converters, and developer tools. Fast, secure, and always available."
+        title="ToolStack Online - Free Online Tools for Everyone"
+        description="Access powerful online tools that work entirely in your browser. Text tools, calculators, converters, developer tools, and more - all free and easy to use."
         keywords={['online tools', 'free tools', 'web tools', 'calculator', 'converter', 'text tools']}
-        canonicalUrl={window.location.origin}
+        canonicalUrl="https://toolstackonline.com"
       />
       
       <OrganizationSchema
-        name="Helpful Tools"
-        url={window.location.origin}
+        name="ToolStack Online"
+        url="https://toolstackonline.com"
         description="Free online tools to make your work easier. Fast, secure, and always available."
       />
 
@@ -28,7 +28,7 @@ export default function Home() {
       <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
-            🛠️ Helpful Tools
+            🛠️ ToolStack Online
           </h1>
           <p className="text-xl md:text-2xl font-sans mb-8 text-primary-100">
             Free, Fast, and Useful Online Tools for Everyone
