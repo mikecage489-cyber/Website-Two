@@ -55,6 +55,9 @@ export default function PDFPageThumbnail({
           viewport: viewport,
         };
 
+        // Type assertion required due to pdf.js type definition limitations
+        // The context and viewport are correctly typed but the full RenderParameters
+        // interface requires additional optional properties
         await page.render(renderContext as any).promise;
         setIsLoading(false);
       } catch (err) {

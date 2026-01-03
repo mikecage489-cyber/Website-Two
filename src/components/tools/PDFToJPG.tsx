@@ -82,6 +82,7 @@ export default function PDFToJPG() {
         canvas.width = viewport.width;
 
         // Render page to canvas
+        // Type assertion required due to pdf.js type definition limitations
         await page.render({
           canvasContext: context,
           viewport: viewport,
