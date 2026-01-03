@@ -70,6 +70,21 @@ export const categoryInfo: Record<ToolCategory, CategoryInfo> = {
       'Real-time character counting',
       'Best practice recommendations'
     ]
+  },
+  'pdf-tools': {
+    id: 'pdf-tools',
+    name: 'PDF Tools',
+    description: 'Complete PDF toolkit for all your document needs',
+    icon: 'FileText',
+    longDescription: 'Professional PDF tools suite for organizing, optimizing, converting, editing, and securing PDF documents. All tools work in your browser with complete privacy - your files never leave your device.',
+    benefits: [
+      'Process PDFs entirely in your browser',
+      'Complete privacy - files never uploaded',
+      'No file size limits',
+      'Professional-grade results',
+      'Fast and easy to use',
+      'Support for all major PDF operations'
+    ]
   }
 };
 
@@ -455,6 +470,303 @@ export const tools: Tool[] = [
     category: 'seo-tools',
     path: '/tools/open-graph-generator',
     keywords: ['open graph', 'og tags', 'social media tags', 'facebook tags'],
+    featured: false
+  },
+
+  // PDF Tools - ORGANIZE PDF (6 tools)
+  {
+    id: 'merge-pdf',
+    name: 'Merge PDF',
+    description: 'Combine multiple PDF files into a single document',
+    category: 'pdf-tools',
+    path: '/tools/merge-pdf',
+    keywords: ['merge pdf', 'combine pdf', 'join pdf', 'pdf merger', 'merge pdf files online'],
+    featured: true,
+    metaTitle: 'Merge PDF - Combine Multiple PDF Files Online',
+    metaDescription: 'Merge multiple PDF files into one document instantly. Free online PDF merger with drag-and-drop interface. Fast, secure, and easy to use.'
+  },
+  {
+    id: 'split-pdf',
+    name: 'Split PDF',
+    description: 'Split PDF into separate pages or extract page ranges',
+    category: 'pdf-tools',
+    path: '/tools/split-pdf',
+    keywords: ['split pdf', 'divide pdf', 'separate pdf pages', 'pdf splitter'],
+    featured: true,
+    metaTitle: 'Split PDF - Divide PDF into Separate Pages',
+    metaDescription: 'Split PDF files into individual pages or extract specific page ranges. Free PDF splitter tool with instant results.'
+  },
+  {
+    id: 'remove-pdf-pages',
+    name: 'Remove PDF Pages',
+    description: 'Delete unwanted pages from your PDF documents',
+    category: 'pdf-tools',
+    path: '/tools/remove-pdf-pages',
+    keywords: ['remove pdf pages', 'delete pdf pages', 'pdf page remover'],
+    featured: false
+  },
+  {
+    id: 'extract-pdf-pages',
+    name: 'Extract PDF Pages',
+    description: 'Extract specific pages from PDF to create new documents',
+    category: 'pdf-tools',
+    path: '/tools/extract-pdf-pages',
+    keywords: ['extract pdf pages', 'pdf page extractor', 'get pdf pages'],
+    featured: false
+  },
+  {
+    id: 'organize-pdf',
+    name: 'Organize PDF',
+    description: 'Reorder, rotate, and organize PDF pages easily',
+    category: 'pdf-tools',
+    path: '/tools/organize-pdf',
+    keywords: ['organize pdf', 'reorder pdf pages', 'rearrange pdf'],
+    featured: false
+  },
+  {
+    id: 'scan-to-pdf',
+    name: 'Scan to PDF',
+    description: 'Convert scanned images and documents to PDF format',
+    category: 'pdf-tools',
+    path: '/tools/scan-to-pdf',
+    keywords: ['scan to pdf', 'image to pdf scanner', 'document scanner'],
+    featured: false
+  },
+
+  // PDF Tools - OPTIMIZE PDF (3 tools)
+  {
+    id: 'compress-pdf',
+    name: 'Compress PDF',
+    description: 'Reduce PDF file size while maintaining quality',
+    category: 'pdf-tools',
+    path: '/tools/compress-pdf',
+    keywords: ['compress pdf', 'reduce pdf size', 'pdf compressor', 'shrink pdf'],
+    featured: true,
+    metaTitle: 'Compress PDF - Reduce PDF File Size Online',
+    metaDescription: 'Compress PDF files to reduce size while maintaining quality. Free PDF compressor with adjustable compression levels.'
+  },
+  {
+    id: 'repair-pdf',
+    name: 'Repair PDF',
+    description: 'Fix corrupted or damaged PDF files',
+    category: 'pdf-tools',
+    path: '/tools/repair-pdf',
+    keywords: ['repair pdf', 'fix pdf', 'corrupted pdf recovery', 'pdf repair tool'],
+    featured: false
+  },
+  {
+    id: 'ocr-pdf',
+    name: 'OCR PDF',
+    description: 'Convert scanned PDFs to searchable and editable text',
+    category: 'pdf-tools',
+    path: '/tools/ocr-pdf',
+    keywords: ['ocr pdf', 'pdf ocr', 'searchable pdf', 'text recognition'],
+    featured: true,
+    metaTitle: 'OCR PDF - Convert Scanned PDF to Searchable Text',
+    metaDescription: 'Convert scanned PDFs to searchable, editable text with OCR. Free online OCR tool with high accuracy.'
+  },
+
+  // PDF Tools - CONVERT TO PDF (5 tools)
+  {
+    id: 'jpg-to-pdf',
+    name: 'JPG to PDF',
+    description: 'Convert JPG, PNG, and other images to PDF format',
+    category: 'pdf-tools',
+    path: '/tools/jpg-to-pdf',
+    keywords: ['jpg to pdf', 'image to pdf', 'png to pdf', 'photo to pdf converter'],
+    featured: true,
+    metaTitle: 'JPG to PDF - Convert Images to PDF Online',
+    metaDescription: 'Convert JPG, PNG, and other images to PDF instantly. Free image to PDF converter with batch support.'
+  },
+  {
+    id: 'word-to-pdf',
+    name: 'WORD to PDF',
+    description: 'Convert Word documents (DOC, DOCX) to PDF format',
+    category: 'pdf-tools',
+    path: '/tools/word-to-pdf',
+    keywords: ['word to pdf', 'doc to pdf', 'docx to pdf', 'convert word to pdf'],
+    featured: true,
+    metaTitle: 'Word to PDF - Convert DOC/DOCX to PDF Online',
+    metaDescription: 'Convert Word documents to PDF format instantly. Free Word to PDF converter that preserves formatting.'
+  },
+  {
+    id: 'powerpoint-to-pdf',
+    name: 'PowerPoint to PDF',
+    description: 'Convert PowerPoint presentations (PPT, PPTX) to PDF',
+    category: 'pdf-tools',
+    path: '/tools/powerpoint-to-pdf',
+    keywords: ['powerpoint to pdf', 'ppt to pdf', 'pptx to pdf', 'presentation to pdf'],
+    featured: false
+  },
+  {
+    id: 'excel-to-pdf',
+    name: 'Excel to PDF',
+    description: 'Convert Excel spreadsheets (XLS, XLSX) to PDF format',
+    category: 'pdf-tools',
+    path: '/tools/excel-to-pdf',
+    keywords: ['excel to pdf', 'xls to pdf', 'xlsx to pdf', 'spreadsheet to pdf'],
+    featured: false
+  },
+  {
+    id: 'html-to-pdf',
+    name: 'HTML to PDF',
+    description: 'Convert HTML web pages to PDF documents',
+    category: 'pdf-tools',
+    path: '/tools/html-to-pdf',
+    keywords: ['html to pdf', 'webpage to pdf', 'website to pdf', 'convert html'],
+    featured: false
+  },
+
+  // PDF Tools - CONVERT FROM PDF (5 tools)
+  {
+    id: 'pdf-to-jpg',
+    name: 'PDF to JPG',
+    description: 'Convert PDF pages to JPG, PNG, or other image formats',
+    category: 'pdf-tools',
+    path: '/tools/pdf-to-jpg',
+    keywords: ['pdf to jpg', 'pdf to image', 'pdf to png', 'convert pdf to picture'],
+    featured: true,
+    metaTitle: 'PDF to JPG - Convert PDF to Images Online',
+    metaDescription: 'Convert PDF pages to JPG, PNG, or other image formats. Free PDF to image converter with high quality output.'
+  },
+  {
+    id: 'pdf-to-word',
+    name: 'PDF to WORD',
+    description: 'Convert PDF to editable Word documents (DOC, DOCX)',
+    category: 'pdf-tools',
+    path: '/tools/pdf-to-word',
+    keywords: ['pdf to word', 'pdf to doc', 'pdf to docx', 'convert pdf to word'],
+    featured: true,
+    metaTitle: 'PDF to Word - Convert PDF to Editable DOC/DOCX',
+    metaDescription: 'Convert PDF to editable Word documents instantly. Free PDF to Word converter that preserves formatting.'
+  },
+  {
+    id: 'pdf-to-powerpoint',
+    name: 'PDF to PowerPoint',
+    description: 'Convert PDF to editable PowerPoint presentations',
+    category: 'pdf-tools',
+    path: '/tools/pdf-to-powerpoint',
+    keywords: ['pdf to powerpoint', 'pdf to ppt', 'pdf to pptx', 'convert pdf to presentation'],
+    featured: false
+  },
+  {
+    id: 'pdf-to-excel',
+    name: 'PDF to Excel',
+    description: 'Convert PDF tables to Excel spreadsheets',
+    category: 'pdf-tools',
+    path: '/tools/pdf-to-excel',
+    keywords: ['pdf to excel', 'pdf to xls', 'pdf to xlsx', 'convert pdf to spreadsheet'],
+    featured: false
+  },
+  {
+    id: 'pdf-to-pdfa',
+    name: 'PDF to PDF/A',
+    description: 'Convert PDF to PDF/A archival format for long-term storage',
+    category: 'pdf-tools',
+    path: '/tools/pdf-to-pdfa',
+    keywords: ['pdf to pdfa', 'pdf archival format', 'convert to pdf/a'],
+    featured: false
+  },
+
+  // PDF Tools - EDIT PDF (5 tools)
+  {
+    id: 'rotate-pdf',
+    name: 'Rotate PDF',
+    description: 'Rotate PDF pages 90, 180, or 270 degrees',
+    category: 'pdf-tools',
+    path: '/tools/rotate-pdf',
+    keywords: ['rotate pdf', 'turn pdf pages', 'pdf rotation tool'],
+    featured: true,
+    metaTitle: 'Rotate PDF - Rotate PDF Pages Online',
+    metaDescription: 'Rotate PDF pages by 90, 180, or 270 degrees. Free PDF rotation tool with instant preview.'
+  },
+  {
+    id: 'add-page-numbers',
+    name: 'Add Page Numbers',
+    description: 'Add customizable page numbers to your PDF documents',
+    category: 'pdf-tools',
+    path: '/tools/add-page-numbers',
+    keywords: ['add page numbers', 'number pdf pages', 'pdf page numbering'],
+    featured: false
+  },
+  {
+    id: 'add-watermark',
+    name: 'Add Watermark',
+    description: 'Add text or image watermarks to protect your PDFs',
+    category: 'pdf-tools',
+    path: '/tools/add-watermark',
+    keywords: ['add watermark', 'pdf watermark', 'watermark pdf online'],
+    featured: false
+  },
+  {
+    id: 'crop-pdf',
+    name: 'Crop PDF',
+    description: 'Crop and trim PDF pages to desired dimensions',
+    category: 'pdf-tools',
+    path: '/tools/crop-pdf',
+    keywords: ['crop pdf', 'trim pdf', 'resize pdf pages'],
+    featured: false
+  },
+  {
+    id: 'edit-pdf',
+    name: 'Edit PDF',
+    description: 'Edit PDF text, images, and content directly',
+    category: 'pdf-tools',
+    path: '/tools/edit-pdf',
+    keywords: ['edit pdf', 'pdf editor', 'modify pdf', 'change pdf content'],
+    featured: true,
+    metaTitle: 'Edit PDF - Online PDF Editor',
+    metaDescription: 'Edit PDF text, images, and content online. Free PDF editor with intuitive interface.'
+  },
+
+  // PDF Tools - PDF SECURITY (5 tools)
+  {
+    id: 'unlock-pdf',
+    name: 'Unlock PDF',
+    description: 'Remove password protection from PDF files',
+    category: 'pdf-tools',
+    path: '/tools/unlock-pdf',
+    keywords: ['unlock pdf', 'remove pdf password', 'decrypt pdf', 'pdf password remover'],
+    featured: true,
+    metaTitle: 'Unlock PDF - Remove PDF Password Protection',
+    metaDescription: 'Remove password protection from PDF files instantly. Free PDF unlocker tool for secured documents.'
+  },
+  {
+    id: 'protect-pdf',
+    name: 'Protect PDF',
+    description: 'Add password protection and encryption to your PDFs',
+    category: 'pdf-tools',
+    path: '/tools/protect-pdf',
+    keywords: ['protect pdf', 'password protect pdf', 'secure pdf', 'encrypt pdf'],
+    featured: true,
+    metaTitle: 'Protect PDF - Add Password Protection to PDF',
+    metaDescription: 'Add password protection and encryption to PDF files. Free PDF security tool to protect sensitive documents.'
+  },
+  {
+    id: 'sign-pdf',
+    name: 'Sign PDF',
+    description: 'Add digital signatures to PDF documents',
+    category: 'pdf-tools',
+    path: '/tools/sign-pdf',
+    keywords: ['sign pdf', 'pdf signature', 'digital signature', 'esign pdf'],
+    featured: false
+  },
+  {
+    id: 'redact-pdf',
+    name: 'Redact PDF',
+    description: 'Permanently remove sensitive information from PDFs',
+    category: 'pdf-tools',
+    path: '/tools/redact-pdf',
+    keywords: ['redact pdf', 'remove sensitive info', 'pdf redaction tool'],
+    featured: false
+  },
+  {
+    id: 'compare-pdf',
+    name: 'Compare PDF',
+    description: 'Compare two PDF documents and highlight differences',
+    category: 'pdf-tools',
+    path: '/tools/compare-pdf',
+    keywords: ['compare pdf', 'pdf diff', 'pdf comparison tool', 'find pdf differences'],
     featured: false
   }
 ];
