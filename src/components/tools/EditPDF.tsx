@@ -1,12 +1,21 @@
-import PlaceholderPDFTool from './PlaceholderPDFTool';
+import ComingSoonTool from './ComingSoonTool';
 
 export default function EditPDF() {
   return (
-    <PlaceholderPDFTool
+    <ComingSoonTool
       toolName="Edit PDF"
-      description="Edit PDF text, images, and content directly in your browser."
-      accept=".pdf"
-      multiple={false}
+      description="We're building a comprehensive PDF editor. Edit PDF content directly in your browser - add text, images, shapes, highlights, and more."
+      features={[
+        'Add and edit text with font customization',
+        'Insert images and shapes',
+        'Highlight and annotate content',
+        'Draw freehand on pages',
+        'Layer management and ordering',
+        'Undo/redo support',
+      ]}
+      acceptFileTypes=".pdf"
+      fileTypeLabel="PDF Files"
     />
   );
 }
+

@@ -1,12 +1,21 @@
-import PlaceholderPDFTool from './PlaceholderPDFTool';
+import ComingSoonTool from './ComingSoonTool';
 
 export default function RedactPDF() {
   return (
-    <PlaceholderPDFTool
+    <ComingSoonTool
       toolName="Redact PDF"
-      description="Permanently remove sensitive information from PDF documents for privacy and security."
-      accept=".pdf"
-      multiple={false}
+      description="We're developing an advanced redaction tool. Permanently remove sensitive information from your PDFs to protect privacy and ensure compliance."
+      features={[
+        'Select areas to redact visually',
+        'Search and auto-redact text',
+        'Permanently remove content (non-reversible)',
+        'Redact images and text',
+        'Multiple redaction patterns',
+        'GDPR and compliance ready',
+      ]}
+      acceptFileTypes=".pdf"
+      fileTypeLabel="PDF Files"
     />
   );
 }
+

@@ -220,3 +220,78 @@ export async function imagesToPDF(files: File[]): Promise<Blob> {
   const pdfBytes = await pdfDoc.save();
   return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
 }
+
+// Add page numbers to PDF
+export async function addPageNumbers(
+  file: File,
+  position: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right',
+  fontSize: number = 12,
+  startPage: number = 1
+): Promise<Blob> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const pages = pdf.getPages();
+
+  pages.forEach((page, index) => {
+    const pageNumber = index + startPage;
+    const { width, height } = page.getSize();
+    const text = `${pageNumber}`;
+
+    // Calculate position
+    let x = 0;
+    let y = 0;
+    const margin = 30;
+
+    // Horizontal position
+    if (position.includes('left')) {
+      x = margin;
+    } else if (position.includes('center')) {
+      x = width / 2 - (fontSize * text.length) / 4;
+    } else if (position.includes('right')) {
+      x = width - margin - (fontSize * text.length) / 2;
+    }
+
+    // Vertical position
+    if (position.includes('top')) {
+      y = height - margin;
+    } else if (position.includes('bottom')) {
+      y = margin;
+    }
+
+    page.drawText(text, {
+      x,
+      y,
+      size: fontSize,
+    });
+  });
+
+  const pdfBytes = await pdf.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Add text watermark to PDF
+export async function addTextWatermark(
+  file: File,
+  text: string,
+  opacity: number = 0.5,
+  fontSize: number = 48
+): Promise<Blob> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const pages = pdf.getPages();
+
+  pages.forEach((page) => {
+    const { width, height } = page.getSize();
+
+    page.drawText(text, {
+      x: width / 2 - (text.length * fontSize) / 4,
+      y: height / 2,
+      size: fontSize,
+      opacity,
+      rotate: degrees(45),
+    });
+  });
+
+  const pdfBytes = await pdf.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
