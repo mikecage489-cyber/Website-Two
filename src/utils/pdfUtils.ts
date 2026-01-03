@@ -148,3 +148,75 @@ export async function getPDFInfo(file: File): Promise<{ pageCount: number; fileS
     fileSize: file.size,
   };
 }
+
+// Organize PDF - reorder pages
+export async function organizePDF(
+  file: File,
+  pageOrder: number[],
+  rotations?: Record<number, number>
+): Promise<Blob> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const newPdf = await PDFDocument.create();
+
+  for (const pageIndex of pageOrder) {
+    const [copiedPage] = await newPdf.copyPages(pdf, [pageIndex]);
+    if (rotations && rotations[pageIndex + 1]) {
+      copiedPage.setRotation(degrees(rotations[pageIndex + 1]));
+    }
+    newPdf.addPage(copiedPage);
+  }
+
+  const pdfBytes = await newPdf.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Rotate specific pages
+export async function rotateSpecificPages(
+  file: File,
+  pageRotations: Record<number, number>
+): Promise<Blob> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const pages = pdf.getPages();
+
+  pages.forEach((page, index) => {
+    const pageNum = index + 1;
+    if (pageRotations[pageNum]) {
+      const currentRotation = page.getRotation().angle;
+      page.setRotation(degrees((currentRotation + pageRotations[pageNum]) % 360));
+    }
+  });
+
+  const pdfBytes = await pdf.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Convert multiple images to single PDF
+export async function imagesToPDF(files: File[]): Promise<Blob> {
+  const pdfDoc = await PDFDocument.create();
+
+  for (const file of files) {
+    const arrayBuffer = await file.arrayBuffer();
+    
+    let image;
+    if (file.type === 'image/png') {
+      image = await pdfDoc.embedPng(arrayBuffer);
+    } else if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
+      image = await pdfDoc.embedJpg(arrayBuffer);
+    } else {
+      throw new Error(`Unsupported image format: ${file.type}. Use JPG or PNG.`);
+    }
+
+    const page = pdfDoc.addPage([image.width, image.height]);
+    page.drawImage(image, {
+      x: 0,
+      y: 0,
+      width: image.width,
+      height: image.height,
+    });
+  }
+
+  const pdfBytes = await pdfDoc.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
