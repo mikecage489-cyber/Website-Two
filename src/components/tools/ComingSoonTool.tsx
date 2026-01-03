@@ -1,24 +1,30 @@
 import { useState } from 'react';
 import { Mail, Info } from 'lucide-react';
-import PDFUploader from '../pdf/PDFUploader';
 
-export default function OCRPDF() {
-  const [file, setFile] = useState<File | null>(null);
+interface ComingSoonToolProps {
+  toolName: string;
+  description: string;
+  features: string[];
+  acceptFileTypes?: string;
+  fileTypeLabel?: string;
+}
+
+export default function ComingSoonTool({
+  toolName,
+  description,
+  features,
+  acceptFileTypes,
+  fileTypeLabel,
+}: ComingSoonToolProps) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
-
-  const handleFileSelect = (selectedFiles: File[]) => {
-    if (selectedFiles.length > 0) {
-      setFile(selectedFiles[0]);
-    }
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
       setSubmitted(true);
       // In a real implementation, this would send to a backend
-      console.log('Email submitted:', email, 'File:', file?.name);
+      console.log('Email submitted for', toolName, ':', email);
     }
   };
 
@@ -31,40 +37,30 @@ export default function OCRPDF() {
           </div>
           <div className="flex-1">
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              OCR PDF - Coming Soon! 🚀
+              {toolName} - Coming Soon! 🚀
             </h3>
-            <p className="text-gray-700 mb-4">
-              We're working hard to bring you advanced Optical Character Recognition (OCR) 
-              capabilities. This feature will convert scanned PDFs and images into searchable, 
-              editable text.
-            </p>
-            <div className="space-y-2 text-sm text-gray-600">
-              <p>✨ <strong>Planned features:</strong></p>
-              <ul className="list-disc list-inside ml-4 space-y-1">
-                <li>Multi-language support (English, Spanish, French, German, and more)</li>
-                <li>High accuracy text recognition</li>
-                <li>Table and layout preservation</li>
-                <li>Searchable PDF output</li>
-                <li>Batch processing support</li>
-              </ul>
-            </div>
+            <p className="text-gray-700 mb-4">{description}</p>
+            {features.length > 0 && (
+              <div className="space-y-2 text-sm text-gray-600">
+                <p>✨ <strong>Planned features:</strong></p>
+                <ul className="list-disc list-inside ml-4 space-y-1">
+                  {features.map((feature, index) => (
+                    <li key={index}>{feature}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      <PDFUploader
-        onFileSelect={handleFileSelect}
-        accept=".pdf,image/jpeg,image/jpg,image/png"
-        multiple={false}
-        label="Upload a scanned PDF or image (preview only)"
-      />
-
-      {file && (
-        <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-          <p className="text-sm font-medium text-gray-900 mb-1">File uploaded:</p>
-          <p className="text-sm text-gray-600">{file.name}</p>
+      {acceptFileTypes && (
+        <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+          <p className="text-sm text-gray-600">
+            <strong>Supported file types:</strong> {fileTypeLabel || acceptFileTypes}
+          </p>
           <p className="text-xs text-gray-500 mt-2">
-            This file will be processed once OCR becomes available.
+            This feature is currently under development and will be available soon.
           </p>
         </div>
       )}
@@ -74,10 +70,10 @@ export default function OCRPDF() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <h4 className="text-lg font-semibold text-gray-900 mb-2">
-                Get notified when OCR is ready
+                Get notified when {toolName} is ready
               </h4>
               <p className="text-sm text-gray-600 mb-4">
-                Enter your email and we'll let you know as soon as OCR PDF is available.
+                Enter your email and we'll let you know as soon as this feature is available.
               </p>
               <div className="flex space-x-3">
                 <input
@@ -101,7 +97,7 @@ export default function OCRPDF() {
         ) : (
           <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
             <p className="text-green-800 font-medium">
-              ✓ Thank you! We'll notify you at <strong>{email}</strong> when OCR is ready.
+              ✓ Thank you! We'll notify you at <strong>{email}</strong> when {toolName} is ready.
             </p>
           </div>
         )}
@@ -118,4 +114,3 @@ export default function OCRPDF() {
     </div>
   );
 }
-
