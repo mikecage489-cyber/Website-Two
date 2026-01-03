@@ -1,74 +1,146 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Code2, Palette, Calculator, Network, Lock, FileText } from 'lucide-react';
+import { Type, Calculator, RefreshCw, Code, Search, ArrowRight } from 'lucide-react';
+import { tools as allTools } from '../../config/tools';
+import type { ToolCategory } from '../../types';
 
-const tools = [
-  {
-    icon: Code2,
-    title: 'Code Formatter',
-    description: 'Format and beautify your code',
-    path: '/tools/code-formatter',
-    color: 'text-blue-400'
-  },
-  {
-    icon: Palette,
-    title: 'Color Picker',
-    description: 'Pick and convert colors',
-    path: '/tools/color-picker',
-    color: 'text-purple-400'
-  },
-  {
-    icon: Calculator,
-    title: 'Unit Converter',
-    description: 'Convert between units',
-    path: '/tools/unit-converter',
-    color: 'text-green-400'
-  },
-  {
-    icon: Network,
-    title: 'IP Lookup',
-    description: 'Look up IP information',
-    path: '/tools/ip-lookup',
-    color: 'text-cyan-400'
-  },
-  {
-    icon: Lock,
-    title: 'Password Generator',
-    description: 'Generate secure passwords',
-    path: '/tools/password-generator',
-    color: 'text-red-400'
-  },
-  {
-    icon: FileText,
-    title: 'Text Tools',
-    description: 'Various text utilities',
-    path: '/tools/text-tools',
-    color: 'text-yellow-400'
+interface ToolsDropdownProps {
+  isOpen: boolean;
+  onClose: () => void;
+  isMobile: boolean;
+}
+
+const categoryConfig: Record<ToolCategory, { icon: React.ComponentType<any>; color: string }> = {
+  'text-tools': { icon: Type, color: 'text-blue-500' },
+  'calculator-tools': { icon: Calculator, color: 'text-green-500' },
+  'converter-tools': { icon: RefreshCw, color: 'text-purple-500' },
+  'developer-tools': { icon: Code, color: 'text-orange-500' },
+  'seo-tools': { icon: Search, color: 'text-pink-500' }
+};
+
+const categoryNames: Record<ToolCategory, string> = {
+  'text-tools': 'Text Tools',
+  'calculator-tools': 'Calculator Tools',
+  'converter-tools': 'Converter Tools',
+  'developer-tools': 'Developer Tools',
+  'seo-tools': 'SEO Tools'
+};
+
+export default function ToolsDropdown({ isOpen, onClose, isMobile }: ToolsDropdownProps) {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  if (!isOpen) return null;
+
+  // Get featured tools from each category (max 3 per category)
+  const featuredToolsByCategory: Record<string, typeof allTools> = {};
+  
+  allTools.forEach(tool => {
+    if (tool.featured) {
+      if (!featuredToolsByCategory[tool.category]) {
+        featuredToolsByCategory[tool.category] = [];
+      }
+      if (featuredToolsByCategory[tool.category].length < 3) {
+        featuredToolsByCategory[tool.category].push(tool);
+      }
+    }
+  });
+
+  // Select categories to display (showing 3 main categories)
+  const displayCategories: ToolCategory[] = ['text-tools', 'converter-tools', 'seo-tools'];
+
+  // Mobile layout - simpler vertical list
+  if (isMobile) {
+    return (
+      <div className="mt-2 space-y-2 pl-4">
+        {displayCategories.map(categoryId => {
+          const categoryTools = featuredToolsByCategory[categoryId] || [];
+          const { icon: Icon, color } = categoryConfig[categoryId];
+          
+          return (
+            <div key={categoryId} className="space-y-2">
+              <div className="flex items-center gap-2 text-sm font-semibold text-gray-900">
+                <Icon className={`w-4 h-4 ${color}`} />
+                <span>{categoryNames[categoryId]}</span>
+              </div>
+              <div className="space-y-1 pl-6">
+                {categoryTools.slice(0, 3).map(tool => (
+                  <Link
+                    key={tool.id}
+                    to={tool.path}
+                    onClick={onClose}
+                    className="block text-sm text-gray-600 hover:text-primary-600 py-1"
+                  >
+                    {tool.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+        <Link
+          to="/tools"
+          onClick={onClose}
+          className="flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 pt-2"
+        >
+          View All Tools
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
+    );
   }
-];
 
-export default function ToolsDropdown() {
+  // Desktop layout - multi-column with right alignment
   return (
-    <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 rounded-lg bg-gray-900/95 backdrop-blur-sm border border-gray-800 shadow-xl z-50"
-         style={{ width: '1000px', maxWidth: 'calc(100vw - 4rem)' }}>
+    <div
+      ref={dropdownRef}
+      className="absolute right-0 mt-2 bg-white shadow-2xl border border-gray-100 rounded-lg z-50 animate-fadeIn"
+      style={{
+        maxWidth: '900px',
+        width: '90vw',
+      }}
+    >
       <div className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {tools.map((tool) => {
-            const Icon = tool.icon;
+        <div className="grid grid-cols-3 gap-6">
+          {displayCategories.map(categoryId => {
+            const categoryTools = featuredToolsByCategory[categoryId] || [];
+            const { icon: Icon, color } = categoryConfig[categoryId];
+            
             return (
-              <Link
-                key={tool.path}
-                to={tool.path}
-                className="flex items-start p-4 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors group"
-              >
-                <Icon className={`w-6 h-6 ${tool.color} mr-3 mt-1 group-hover:scale-110 transition-transform`} />
-                <div>
-                  <h3 className="font-semibold text-white mb-1">{tool.title}</h3>
-                  <p className="text-sm text-gray-400">{tool.description}</p>
+              <div key={categoryId} className="space-y-3">
+                <div className="flex items-center gap-2 pb-2 border-b border-gray-200">
+                  <Icon className={`w-5 h-5 ${color}`} />
+                  <h3 className="font-semibold text-gray-900">{categoryNames[categoryId]}</h3>
                 </div>
-              </Link>
+                <div className="space-y-2">
+                  {categoryTools.slice(0, 5).map(tool => (
+                    <Link
+                      key={tool.id}
+                      to={tool.path}
+                      onClick={onClose}
+                      className="block group"
+                    >
+                      <div className="text-sm font-medium text-gray-900 group-hover:text-primary-600 transition-colors">
+                        {tool.name}
+                      </div>
+                      <div className="text-xs text-gray-500 group-hover:text-gray-700">
+                        {tool.description}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             );
           })}
+        </div>
+        <div className="mt-6 pt-4 border-t border-gray-200">
+          <Link
+            to="/tools"
+            onClick={onClose}
+            className="flex items-center justify-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors"
+          >
+            View All Tools
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </div>
