@@ -161,8 +161,10 @@ export async function organizePDF(
 
   for (const pageIndex of pageOrder) {
     const [copiedPage] = await newPdf.copyPages(pdf, [pageIndex]);
-    if (rotations && rotations[pageIndex + 1]) {
-      copiedPage.setRotation(degrees(rotations[pageIndex + 1]));
+    // pageIndex is 0-based, but rotations use 1-based page numbers
+    const pageNumber = pageIndex + 1;
+    if (rotations && rotations[pageNumber]) {
+      copiedPage.setRotation(degrees(rotations[pageNumber]));
     }
     newPdf.addPage(copiedPage);
   }
@@ -221,6 +223,13 @@ export async function imagesToPDF(files: File[]): Promise<Blob> {
   return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
 }
 
+// Helper function to estimate text width (approximation)
+// Note: This is a rough estimate. For precise positioning, pdf-lib's font metrics would be needed
+// Using ~0.6 * fontSize as average character width works reasonably well for most fonts
+function estimateTextWidth(text: string, fontSize: number): number {
+  return text.length * fontSize * 0.6;
+}
+
 // Add page numbers to PDF
 export async function addPageNumbers(
   file: File,
@@ -236,6 +245,7 @@ export async function addPageNumbers(
     const pageNumber = index + startPage;
     const { width, height } = page.getSize();
     const text = `${pageNumber}`;
+    const textWidth = estimateTextWidth(text, fontSize);
 
     // Calculate position
     let x = 0;
@@ -246,9 +256,9 @@ export async function addPageNumbers(
     if (position.includes('left')) {
       x = margin;
     } else if (position.includes('center')) {
-      x = width / 2 - (fontSize * text.length) / 4;
+      x = width / 2 - textWidth / 2;
     } else if (position.includes('right')) {
-      x = width - margin - (fontSize * text.length) / 2;
+      x = width - margin - textWidth;
     }
 
     // Vertical position
@@ -282,9 +292,10 @@ export async function addTextWatermark(
 
   pages.forEach((page) => {
     const { width, height } = page.getSize();
+    const textWidth = estimateTextWidth(text, fontSize);
 
     page.drawText(text, {
-      x: width / 2 - (text.length * fontSize) / 4,
+      x: width / 2 - textWidth / 2,
       y: height / 2,
       size: fontSize,
       opacity,

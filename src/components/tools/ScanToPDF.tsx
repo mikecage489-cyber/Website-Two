@@ -1,13 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Download, Loader, AlertCircle, CheckCircle, Image as ImageIcon } from 'lucide-react';
 import PDFUploader from '../pdf/PDFUploader';
 import { imagesToPDF, downloadFile } from '../../utils/pdfUtils';
 
 export default function ScanToPDF() {
   const [files, setFiles] = useState<File[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+
+  // Cleanup object URLs when files change or component unmounts
+  useEffect(() => {
+    const urls = files.map((file) => URL.createObjectURL(file));
+    setImageUrls(urls);
+
+    return () => {
+      urls.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [files]);
 
   const handleFilesSelect = (selectedFiles: File[]) => {
     setFiles(selectedFiles);
@@ -89,7 +100,7 @@ export default function ScanToPDF() {
               <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
                 <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
                   <img
-                    src={URL.createObjectURL(file)}
+                    src={imageUrls[index]}
                     alt={file.name}
                     className="max-w-full max-h-full object-contain"
                   />
