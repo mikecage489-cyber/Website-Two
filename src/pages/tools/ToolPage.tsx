@@ -45,6 +45,36 @@ import MetaTagChecker from '../../components/tools/MetaTagChecker';
 import SlugGenerator from '../../components/tools/SlugGenerator';
 import KeywordDensityChecker from '../../components/tools/KeywordDensityChecker';
 import OpenGraphGenerator from '../../components/tools/OpenGraphGenerator';
+// PDF Tools
+import MergePDF from '../../components/tools/MergePDF';
+import SplitPDF from '../../components/tools/SplitPDF';
+import RemovePDFPages from '../../components/tools/RemovePDFPages';
+import ExtractPDFPages from '../../components/tools/ExtractPDFPages';
+import OrganizePDF from '../../components/tools/OrganizePDF';
+import ScanToPDF from '../../components/tools/ScanToPDF';
+import CompressPDF from '../../components/tools/CompressPDF';
+import RepairPDF from '../../components/tools/RepairPDF';
+import OCRPDF from '../../components/tools/OCRPDF';
+import JPGToPDF from '../../components/tools/JPGToPDF';
+import WordToPDF from '../../components/tools/WordToPDF';
+import PowerPointToPDF from '../../components/tools/PowerPointToPDF';
+import ExcelToPDF from '../../components/tools/ExcelToPDF';
+import HTMLToPDF from '../../components/tools/HTMLToPDF';
+import PDFToJPG from '../../components/tools/PDFToJPG';
+import PDFToWord from '../../components/tools/PDFToWord';
+import PDFToPowerPoint from '../../components/tools/PDFToPowerPoint';
+import PDFToExcel from '../../components/tools/PDFToExcel';
+import PDFToPDFA from '../../components/tools/PDFToPDFA';
+import RotatePDF from '../../components/tools/RotatePDF';
+import AddPageNumbers from '../../components/tools/AddPageNumbers';
+import AddWatermark from '../../components/tools/AddWatermark';
+import CropPDF from '../../components/tools/CropPDF';
+import EditPDF from '../../components/tools/EditPDF';
+import UnlockPDF from '../../components/tools/UnlockPDF';
+import ProtectPDF from '../../components/tools/ProtectPDF';
+import SignPDF from '../../components/tools/SignPDF';
+import RedactPDF from '../../components/tools/RedactPDF';
+import ComparePDF from '../../components/tools/ComparePDF';
 
 const toolComponents: Record<string, React.ComponentType> = {
   'word-counter': WordCounter,
@@ -85,6 +115,36 @@ const toolComponents: Record<string, React.ComponentType> = {
   'slug-generator': SlugGenerator,
   'keyword-density-checker': KeywordDensityChecker,
   'open-graph-generator': OpenGraphGenerator,
+  // PDF Tools
+  'merge-pdf': MergePDF,
+  'split-pdf': SplitPDF,
+  'remove-pdf-pages': RemovePDFPages,
+  'extract-pdf-pages': ExtractPDFPages,
+  'organize-pdf': OrganizePDF,
+  'scan-to-pdf': ScanToPDF,
+  'compress-pdf': CompressPDF,
+  'repair-pdf': RepairPDF,
+  'ocr-pdf': OCRPDF,
+  'jpg-to-pdf': JPGToPDF,
+  'word-to-pdf': WordToPDF,
+  'powerpoint-to-pdf': PowerPointToPDF,
+  'excel-to-pdf': ExcelToPDF,
+  'html-to-pdf': HTMLToPDF,
+  'pdf-to-jpg': PDFToJPG,
+  'pdf-to-word': PDFToWord,
+  'pdf-to-powerpoint': PDFToPowerPoint,
+  'pdf-to-excel': PDFToExcel,
+  'pdf-to-pdfa': PDFToPDFA,
+  'rotate-pdf': RotatePDF,
+  'add-page-numbers': AddPageNumbers,
+  'add-watermark': AddWatermark,
+  'crop-pdf': CropPDF,
+  'edit-pdf': EditPDF,
+  'unlock-pdf': UnlockPDF,
+  'protect-pdf': ProtectPDF,
+  'sign-pdf': SignPDF,
+  'redact-pdf': RedactPDF,
+  'compare-pdf': ComparePDF,
 };
 
 const toolContent: Record<string, { instructions: string; example: string; faqs: Array<{q: string; a: string}> }> = {
@@ -433,6 +493,268 @@ const toolContent: Record<string, { instructions: string; example: string; faqs:
       { q: 'What is Open Graph?', a: 'Open Graph is a protocol that enables any web page to become a rich object in social media.' },
       { q: 'Do I need all fields?', a: 'Title and description are essential. Image, URL, and other fields are recommended for best results.' },
       { q: 'Will this work on Twitter?', a: 'Twitter uses its own Card tags, but Open Graph tags work as a fallback.' },
+    ]
+  },
+  // PDF Tools Content
+  'merge-pdf': {
+    instructions: 'Upload two or more PDF files and click "Merge & Download" to combine them into a single document. Files will be merged in the order they appear.',
+    example: 'Combine multiple reports, invoices, or documents into one PDF file for easier sharing and organization.',
+    faqs: [
+      { q: 'Can I change the order of files?', a: 'Yes, use the X button to remove files and re-upload them in your preferred order.' },
+      { q: 'Is there a limit on file size?', a: 'Each file can be up to 50MB. You can merge as many files as needed.' },
+      { q: 'Are my files uploaded to a server?', a: 'No, all processing happens in your browser. Your files never leave your device.' },
+    ]
+  },
+  'split-pdf': {
+    instructions: 'Upload a PDF file to split it into individual pages. Each page will be downloaded as a separate PDF file.',
+    example: 'Extract individual pages from a large document, separate chapters, or create single-page PDFs from a multi-page file.',
+    faqs: [
+      { q: 'Will all pages be downloaded at once?', a: 'Yes, but downloads are staggered slightly to prevent browser issues with multiple downloads.' },
+      { q: 'Can I split only specific pages?', a: 'This tool splits all pages. Use "Extract PDF Pages" to select specific pages.' },
+      { q: 'What format are the output files?', a: 'Each output file is a valid PDF containing a single page from the original document.' },
+    ]
+  },
+  'remove-pdf-pages': {
+    instructions: 'Upload a PDF and specify which pages to remove. The tool will create a new PDF without those pages.',
+    example: 'Remove cover pages, blank pages, or unwanted sections from your PDF documents.',
+    faqs: [
+      { q: 'Can I remove multiple pages at once?', a: 'Yes, you can select multiple pages to remove in a single operation.' },
+      { q: 'Does this modify the original file?', a: 'No, a new PDF is created. Your original file remains unchanged.' },
+      { q: 'Is the process reversible?', a: 'Keep your original file as a backup. Once pages are removed from the new file, they cannot be recovered from it.' },
+    ]
+  },
+  'extract-pdf-pages': {
+    instructions: 'Upload a PDF and select specific pages to extract into a new document.',
+    example: 'Extract important pages, create excerpts, or pull out specific sections from a large PDF.',
+    faqs: [
+      { q: 'Can I extract non-consecutive pages?', a: 'Yes, you can select any pages you want, in any order.' },
+      { q: 'How is this different from Split PDF?', a: 'Split creates individual files for each page. Extract creates one file with only your selected pages.' },
+      { q: 'Will page numbers be preserved?', a: 'The extracted pages will be renumbered starting from 1 in the new document.' },
+    ]
+  },
+  'organize-pdf': {
+    instructions: 'Upload a PDF to reorder, rotate, or organize pages according to your needs.',
+    example: 'Fix page order, rotate scanned documents, or rearrange sections in your PDF.',
+    faqs: [
+      { q: 'Can I rotate individual pages?', a: 'Yes, you can rotate each page independently or all pages at once.' },
+      { q: 'Can I duplicate pages?', a: 'This tool focuses on reordering and rotation. Use Merge PDF to duplicate pages.' },
+      { q: 'Will the file size change?', a: 'File size should remain similar unless you remove pages.' },
+    ]
+  },
+  'scan-to-pdf': {
+    instructions: 'Upload scanned images (JPG, PNG) to convert them into a PDF document. Multiple images can be combined into one PDF.',
+    example: 'Convert scanned receipts, contracts, or photos into PDF format for digital storage.',
+    faqs: [
+      { q: 'What image formats are supported?', a: 'JPG, JPEG, and PNG formats are supported.' },
+      { q: 'Will image quality be preserved?', a: 'Yes, images are embedded in the PDF without additional compression.' },
+      { q: 'Can I combine multiple scans?', a: 'Yes, upload multiple images and they will be combined into a single multi-page PDF.' },
+    ]
+  },
+  'compress-pdf': {
+    instructions: 'Upload a PDF file to reduce its file size while maintaining reasonable quality. Ideal for sharing via email or uploading to websites.',
+    example: 'Reduce a 10MB PDF to 5MB or less for easier sharing and faster uploads.',
+    faqs: [
+      { q: 'How much compression can I expect?', a: 'Compression results vary. PDFs with images typically compress 20-40%. Text-heavy PDFs may see less reduction.' },
+      { q: 'Will quality be affected?', a: 'Some quality loss may occur, especially with images. The tool balances size reduction with quality preservation.' },
+      { q: 'Can I compress already compressed PDFs?', a: 'Yes, but you may not see significant additional size reduction.' },
+    ]
+  },
+  'repair-pdf': {
+    instructions: 'Upload a corrupted or damaged PDF file to attempt recovery and repair.',
+    example: 'Fix PDFs that won\'t open, have rendering issues, or were damaged during transfer.',
+    faqs: [
+      { q: 'Can all corrupted PDFs be repaired?', a: 'Not all damage can be repaired. Success depends on the type and extent of corruption.' },
+      { q: 'What types of issues can be fixed?', a: 'Common fixes include header corruption, missing EOF markers, and structural inconsistencies.' },
+      { q: 'Is my data safe?', a: 'Yes, repairs are attempted on a copy. Your original file is never modified.' },
+    ]
+  },
+  'ocr-pdf': {
+    instructions: 'Upload a scanned PDF to convert it to searchable text using Optical Character Recognition (OCR).',
+    example: 'Make scanned documents searchable, convert scanned books to editable text, or digitize printed documents.',
+    faqs: [
+      { q: 'What languages are supported?', a: 'OCR typically supports major languages including English, Spanish, French, German, and more.' },
+      { q: 'How accurate is OCR?', a: 'Accuracy depends on image quality. Clear, high-resolution scans yield best results.' },
+      { q: 'Can I edit the recognized text?', a: 'The output PDF will have a searchable text layer. Use "PDF to Word" for full editing capability.' },
+    ]
+  },
+  'jpg-to-pdf': {
+    instructions: 'Upload JPG, JPEG, or PNG images to convert them into PDF format. Multiple images can be combined into one PDF or converted individually.',
+    example: 'Convert photos, screenshots, or graphics to PDF for professional documents or portfolios.',
+    faqs: [
+      { q: 'What is the difference between JPG and PNG?', a: 'JPG is compressed (smaller files), PNG supports transparency. Both can be converted to PDF.' },
+      { q: 'Will images be resized?', a: 'Images maintain their original dimensions and aspect ratio in the PDF.' },
+      { q: 'Can I adjust image order?', a: 'Images are added in the order you select them. Remove and re-add to reorder.' },
+    ]
+  },
+  'word-to-pdf': {
+    instructions: 'Upload Word documents (.doc, .docx) to convert them to PDF format while preserving formatting.',
+    example: 'Convert reports, resumes, or documents to PDF for professional sharing and printing.',
+    faqs: [
+      { q: 'Will formatting be preserved?', a: 'Basic formatting like fonts, colors, and layouts are preserved. Complex elements may need adjustment.' },
+      { q: 'Are both .doc and .docx supported?', a: 'Yes, both older .doc and newer .docx formats are supported.' },
+      { q: 'What about embedded images?', a: 'Images embedded in Word documents are included in the PDF output.' },
+    ]
+  },
+  'powerpoint-to-pdf': {
+    instructions: 'Upload PowerPoint presentations (.ppt, .pptx) to convert them to PDF format.',
+    example: 'Share presentations as PDFs to ensure consistent viewing across all devices.',
+    faqs: [
+      { q: 'Will animations be preserved?', a: 'No, PDFs are static. Animations and transitions will not be included.' },
+      { q: 'What about slide notes?', a: 'Typically only the slide content is exported. Speaker notes are not included by default.' },
+      { q: 'Can I convert multiple presentations?', a: 'Upload one presentation at a time. Each creates a separate PDF.' },
+    ]
+  },
+  'excel-to-pdf': {
+    instructions: 'Upload Excel spreadsheets (.xls, .xlsx) to convert them to PDF format.',
+    example: 'Share reports, charts, or data tables as PDFs for easy viewing without Excel.',
+    faqs: [
+      { q: 'Will all sheets be included?', a: 'Typically all visible sheets are converted. Hidden sheets may not be included.' },
+      { q: 'How are large spreadsheets handled?', a: 'Large sheets may span multiple pages in the PDF.' },
+      { q: 'Are formulas preserved?', a: 'Only the calculated values are shown. Formulas are not active in PDF format.' },
+    ]
+  },
+  'html-to-pdf': {
+    instructions: 'Upload HTML files to convert them to PDF format, preserving layout and styling.',
+    example: 'Save web pages, HTML emails, or reports as PDFs for archiving or printing.',
+    faqs: [
+      { q: 'Will CSS styling be applied?', a: 'Yes, inline and embedded CSS is generally preserved in the conversion.' },
+      { q: 'What about external resources?', a: 'External images and stylesheets may not load if not accessible from your device.' },
+      { q: 'Can I convert live web pages?', a: 'This tool works with HTML files. Use browser "Print to PDF" for live web pages.' },
+    ]
+  },
+  'pdf-to-jpg': {
+    instructions: 'Upload a PDF to convert its pages to JPG, PNG, or other image formats.',
+    example: 'Extract images from PDFs, create thumbnails, or convert documents to image format.',
+    faqs: [
+      { q: 'What image format should I choose?', a: 'JPG for photos/complex images (smaller files), PNG for text/diagrams (better quality).' },
+      { q: 'What resolution will the images be?', a: 'Images are typically generated at screen resolution (96 DPI) or higher for quality.' },
+      { q: 'Can I convert specific pages only?', a: 'All pages are converted. Use "Extract PDF Pages" first if you need specific pages.' },
+    ]
+  },
+  'pdf-to-word': {
+    instructions: 'Upload a PDF to convert it to an editable Word document (.docx).',
+    example: 'Convert PDFs to Word for editing text, updating content, or reusing document content.',
+    faqs: [
+      { q: 'Will formatting be perfect?', a: 'Basic formatting is preserved. Complex layouts may require manual adjustment.' },
+      { q: 'Can scanned PDFs be converted?', a: 'For best results, use OCR PDF first to make scanned documents searchable.' },
+      { q: 'What about images?', a: 'Images are typically included in the Word document.' },
+    ]
+  },
+  'pdf-to-powerpoint': {
+    instructions: 'Upload a PDF to convert it to an editable PowerPoint presentation (.pptx).',
+    example: 'Convert PDF presentations back to PowerPoint for editing or repurposing.',
+    faqs: [
+      { q: 'How are pages mapped to slides?', a: 'Typically each PDF page becomes one PowerPoint slide.' },
+      { q: 'Can I edit the converted presentation?', a: 'Yes, the output is a fully editable PowerPoint file.' },
+      { q: 'Will text be editable?', a: 'Text editability depends on the original PDF. Scanned PDFs may convert as images.' },
+    ]
+  },
+  'pdf-to-excel': {
+    instructions: 'Upload a PDF containing tables to convert it to an Excel spreadsheet (.xlsx).',
+    example: 'Extract data tables from PDF reports for analysis in Excel.',
+    faqs: [
+      { q: 'Does it work with all PDFs?', a: 'Best results with PDFs containing clear table structures. Complex layouts may need manual cleanup.' },
+      { q: 'Will formulas be recreated?', a: 'No, only values are extracted. You will need to recreate formulas in Excel.' },
+      { q: 'What if my PDF has multiple tables?', a: 'Multiple tables may be placed on separate sheets or require manual separation.' },
+    ]
+  },
+  'pdf-to-pdfa': {
+    instructions: 'Upload a PDF to convert it to PDF/A format, an ISO-standardized version for long-term archiving.',
+    example: 'Create archive-compliant PDFs for legal documents, records, or long-term storage.',
+    faqs: [
+      { q: 'What is PDF/A?', a: 'PDF/A is a specialized PDF format designed for electronic document archiving and long-term preservation.' },
+      { q: 'Why use PDF/A?', a: 'PDF/A ensures documents remain readable for decades by embedding all necessary resources.' },
+      { q: 'Are there different PDF/A levels?', a: 'Yes, PDF/A-1, PDF/A-2, and PDF/A-3 exist. This tool typically creates PDF/A-2.' },
+    ]
+  },
+  'rotate-pdf': {
+    instructions: 'Upload a PDF and choose a rotation angle (90°, 180°, or 270°) to rotate all pages.',
+    example: 'Fix scanned documents that are sideways, correct orientation, or prepare documents for printing.',
+    faqs: [
+      { q: 'Can I rotate individual pages?', a: 'This tool rotates all pages by the same amount. Use "Organize PDF" for individual page rotation.' },
+      { q: 'Is rotation permanent?', a: 'The rotation is saved in the new PDF. Your original file is not modified.' },
+      { q: 'Which rotation should I choose?', a: '90° for portrait to landscape (or vice versa), 180° to flip upside down, 270° for counter-rotation.' },
+    ]
+  },
+  'add-page-numbers': {
+    instructions: 'Upload a PDF to add customizable page numbers with options for position, format, and starting number.',
+    example: 'Add page numbers to reports, manuscripts, or documents for professional presentation.',
+    faqs: [
+      { q: 'Can I choose where numbers appear?', a: 'Yes, typically you can place numbers at top/bottom and left/center/right positions.' },
+      { q: 'Can I start numbering from a specific page?', a: 'Yes, you can choose which page to start numbering and what number to start with.' },
+      { q: 'What number formats are available?', a: 'Common formats include: 1,2,3 | i,ii,iii | a,b,c | Page 1 of N.' },
+    ]
+  },
+  'add-watermark': {
+    instructions: 'Upload a PDF to add text or image watermarks for copyright protection or document identification.',
+    example: 'Add "CONFIDENTIAL", "DRAFT", company logos, or copyright notices to your PDFs.',
+    faqs: [
+      { q: 'Can watermarks be removed?', a: 'Watermarks can be difficult to remove completely, especially when applied properly.' },
+      { q: 'Will watermarks affect readability?', a: 'You can adjust opacity and position to minimize impact on document readability.' },
+      { q: 'Can I use my logo?', a: 'Yes, you can upload an image file to use as a watermark.' },
+    ]
+  },
+  'crop-pdf': {
+    instructions: 'Upload a PDF to crop pages and remove unwanted margins or content around the edges.',
+    example: 'Remove white space, trim pages to size, or crop to specific dimensions for printing.',
+    faqs: [
+      { q: 'Can I crop each page differently?', a: 'Tools vary. Some apply the same crop to all pages, others allow per-page cropping.' },
+      { q: 'Will cropped content be recoverable?', a: 'No, cropped areas are removed from the new PDF and cannot be recovered.' },
+      { q: 'How do I specify the crop area?', a: 'Typically by dragging corners or entering specific dimensions/margins.' },
+    ]
+  },
+  'edit-pdf': {
+    instructions: 'Upload a PDF to edit text, images, and other content directly in your browser.',
+    example: 'Correct typos, update information, or modify content without converting to another format.',
+    faqs: [
+      { q: 'Can I edit all PDFs?', a: 'Scanned PDFs (images) cannot be edited directly. Use OCR first to make them editable.' },
+      { q: 'What can I edit?', a: 'You can typically edit text, add/remove images, and modify existing content.' },
+      { q: 'Are changes permanent?', a: 'Changes are saved to a new PDF. Keep your original as a backup.' },
+    ]
+  },
+  'unlock-pdf': {
+    instructions: 'Upload a password-protected PDF and enter the password to remove restrictions and create an unlocked version.',
+    example: 'Remove password protection from your own documents for easier access.',
+    faqs: [
+      { q: 'Can this crack PDF passwords?', a: 'No, you must know the correct password. This tool removes protection after verification.' },
+      { q: 'What is the difference between open and permissions passwords?', a: 'Open passwords prevent viewing. Permissions passwords restrict editing/printing. This handles both.' },
+      { q: 'Is this legal?', a: 'Only remove protection from PDFs you own or have permission to modify.' },
+    ]
+  },
+  'protect-pdf': {
+    instructions: 'Upload a PDF to add password protection and encryption for security and privacy.',
+    example: 'Protect sensitive documents, financial records, or confidential information with encryption.',
+    faqs: [
+      { q: 'What types of passwords can I add?', a: 'You can add an open password (required to view) and/or permissions password (restricts editing/printing).' },
+      { q: 'How secure is PDF encryption?', a: 'Modern PDF encryption (128-bit or 256-bit AES) is quite secure when using strong passwords.' },
+      { q: 'Can I recover a forgotten password?', a: 'No, password recovery is not possible. Store your passwords securely.' },
+    ]
+  },
+  'sign-pdf': {
+    instructions: 'Upload a PDF to add your digital signature for authentication and verification.',
+    example: 'Sign contracts, agreements, forms, or documents electronically without printing.',
+    faqs: [
+      { q: 'Is a digital signature legally binding?', a: 'In many jurisdictions, yes. Check local laws for specific requirements.' },
+      { q: 'Can I draw my signature?', a: 'Yes, most tools allow drawing, typing, or uploading an image of your signature.' },
+      { q: 'Can signatures be verified?', a: 'Digital signatures can include verification data to confirm authenticity.' },
+    ]
+  },
+  'redact-pdf': {
+    instructions: 'Upload a PDF to permanently remove sensitive information by redacting (blacking out) specific content.',
+    example: 'Remove personal information, SSNs, confidential data, or classified information from documents.',
+    faqs: [
+      { q: 'Is redaction permanent?', a: 'Yes, properly redacted content is permanently removed and cannot be recovered.' },
+      { q: 'What is the difference between redaction and highlighting?', a: 'Redaction permanently removes content. Highlighting only covers it temporarily (data still exists underneath).' },
+      { q: 'Can I redact specific words?', a: 'Yes, you can select text, areas, or use search to find and redact specific content.' },
+    ]
+  },
+  'compare-pdf': {
+    instructions: 'Upload two PDF files to compare them side-by-side and identify differences.',
+    example: 'Compare document versions, track changes, or verify document modifications.',
+    faqs: [
+      { q: 'What types of changes are detected?', a: 'Text changes, added/removed content, and formatting differences are typically highlighted.' },
+      { q: 'Can I compare scanned documents?', a: 'Text-based comparison requires searchable PDFs. Scanned PDFs may need OCR first.' },
+      { q: 'How are differences displayed?', a: 'Usually with color coding (red for removed, green for added) or side-by-side highlighting.' },
     ]
   }
 };
