@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import emailjs from '@emailjs/browser';
 import { Mail, User, MessageSquare, Send, CheckCircle, AlertCircle, Loader } from 'lucide-react';
@@ -26,6 +26,11 @@ export default function Contact() {
     type: 'idle',
     message: ''
   });
+
+  // Initialize EmailJS on component mount
+  useEffect(() => {
+    emailjs.init('rRIWZO-yU_CO3B6TV');
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -81,17 +86,15 @@ export default function Contact() {
     });
 
     try {
-      // Initialize EmailJS
-      emailjs.init('rRIWZO-yU_CO3B6TV');
-
       const result = await emailjs.send(
         'service_h5ti20o',
-        'template_d2nurzs',
+        'template_zvbe36p',
         {
           from_name: formData.from_name,
           from_email: formData.from_email,
           message: formData.message,
           to_name: 'Support Team',
+          reply_to: formData.from_email,
         },
         'rRIWZO-yU_CO3B6TV'
       );
@@ -263,16 +266,6 @@ export default function Contact() {
                 )}
               </button>
             </form>
-          </div>
-
-          {/* Additional Contact Info */}
-          <div className="mt-8 text-center">
-            <p className="font-sans text-gray-600">
-              Or email us directly at:{' '}
-              <a href="mailto:support@helpfultools.com" className="text-primary-600 hover:text-primary-700 font-medium underline">
-                support@helpfultools.com
-              </a>
-            </p>
           </div>
         </div>
       </div>
