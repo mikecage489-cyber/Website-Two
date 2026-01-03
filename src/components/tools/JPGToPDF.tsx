@@ -32,13 +32,13 @@ export default function JPGToPDF() {
         const filename = files[0].name.replace(/\.(jpg|jpeg|png)$/i, '.pdf');
         downloadFile(pdfBlob, filename);
       } else {
-        // Multiple images - convert each to a separate PDF
+        // Multiple images - convert each with proper queuing
         for (let i = 0; i < files.length; i++) {
           const pdfBlob = await imageToPDF(files[i]);
           const filename = files[i].name.replace(/\.(jpg|jpeg|png)$/i, '.pdf');
-          setTimeout(() => {
-            downloadFile(pdfBlob, filename);
-          }, i * 100); // Stagger downloads
+          // Use Promise-based delay for better control
+          await new Promise(resolve => setTimeout(resolve, i * 200));
+          downloadFile(pdfBlob, filename);
         }
       }
       

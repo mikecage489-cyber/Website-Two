@@ -38,9 +38,16 @@ export async function splitPDF(file: File): Promise<Blob[]> {
 export async function extractPages(file: File, pageNumbers: number[]): Promise<Blob> {
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
+  const totalPages = pdf.getPageCount();
+  
+  // Validate page numbers
+  const validPageNumbers = pageNumbers.filter(num => num >= 0 && num < totalPages);
+  if (validPageNumbers.length === 0) {
+    throw new Error('No valid page numbers provided');
+  }
+  
   const newPdf = await PDFDocument.create();
-
-  const copiedPages = await newPdf.copyPages(pdf, pageNumbers);
+  const copiedPages = await newPdf.copyPages(pdf, validPageNumbers);
   copiedPages.forEach((page) => newPdf.addPage(page));
 
   const pdfBytes = await newPdf.save();
@@ -53,9 +60,16 @@ export async function removePages(file: File, pageNumbers: number[]): Promise<Bl
   const pdf = await PDFDocument.load(arrayBuffer);
   const totalPages = pdf.getPageCount();
   
+  // Validate page numbers
+  const validPageNumbers = pageNumbers.filter(num => num >= 0 && num < totalPages);
+  
   // Get pages to keep (inverse of pages to remove)
   const pagesToKeep = Array.from({ length: totalPages }, (_, i) => i)
-    .filter(i => !pageNumbers.includes(i));
+    .filter(i => !validPageNumbers.includes(i));
+  
+  if (pagesToKeep.length === 0) {
+    throw new Error('Cannot remove all pages from PDF');
+  }
 
   const newPdf = await PDFDocument.create();
   const copiedPages = await newPdf.copyPages(pdf, pagesToKeep);

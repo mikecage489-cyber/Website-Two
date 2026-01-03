@@ -40,12 +40,12 @@ export default function SplitPDF() {
     try {
       const pages = await splitPDF(file);
       
-      // Download each page
-      pages.forEach((pageBlob: Blob, index: number) => {
-        setTimeout(() => {
-          downloadFile(pageBlob, `page-${index + 1}.pdf`);
-        }, index * 100); // Stagger downloads slightly
-      });
+      // Download each page with proper queuing
+      for (let i = 0; i < pages.length; i++) {
+        // Use Promise-based delay for better control
+        await new Promise(resolve => setTimeout(resolve, i * 200));
+        downloadFile(pages[i], `page-${i + 1}.pdf`);
+      }
       
       setSuccess(true);
     } catch (err) {

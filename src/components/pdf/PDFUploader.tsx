@@ -20,17 +20,7 @@ export default function PDFUploader({
   const [dragActive, setDragActive] = useState(false);
   const [error, setError] = useState('');
 
-  const handleDrag = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
-    }
-  }, []);
-
-  const validateFiles = (fileList: FileList): File[] => {
+  const validateFiles = useCallback((fileList: FileList): File[] => {
     const validFiles: File[] = [];
     const maxBytes = maxSize * 1024 * 1024;
 
@@ -43,7 +33,17 @@ export default function PDFUploader({
     });
 
     return validFiles;
-  };
+  }, [maxSize]);
+
+  const handleDrag = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  }, []);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
