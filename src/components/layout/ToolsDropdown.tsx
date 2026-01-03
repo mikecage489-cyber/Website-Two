@@ -100,8 +100,7 @@ export default function ToolsDropdown({ isOpen, onClose, isMobile = false }: Too
       style={{
         top: '64px', // Height of navbar
         maxWidth: '1200px',
-        width: '90vw',
-        minWidth: '900px',
+        width: 'min(90vw, 1200px)',
       }}
     >
       <div className="p-8">
