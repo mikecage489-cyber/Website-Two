@@ -148,3 +148,161 @@ export async function getPDFInfo(file: File): Promise<{ pageCount: number; fileS
     fileSize: file.size,
   };
 }
+
+// Organize PDF - reorder pages
+export async function organizePDF(
+  file: File,
+  pageOrder: number[],
+  rotations?: Record<number, number>
+): Promise<Blob> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const newPdf = await PDFDocument.create();
+
+  for (const pageIndex of pageOrder) {
+    const [copiedPage] = await newPdf.copyPages(pdf, [pageIndex]);
+    // pageIndex is 0-based, but rotations use 1-based page numbers
+    const pageNumber = pageIndex + 1;
+    if (rotations && rotations[pageNumber]) {
+      copiedPage.setRotation(degrees(rotations[pageNumber]));
+    }
+    newPdf.addPage(copiedPage);
+  }
+
+  const pdfBytes = await newPdf.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Rotate specific pages
+export async function rotateSpecificPages(
+  file: File,
+  pageRotations: Record<number, number>
+): Promise<Blob> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const pages = pdf.getPages();
+
+  pages.forEach((page, index) => {
+    const pageNum = index + 1;
+    if (pageRotations[pageNum]) {
+      const currentRotation = page.getRotation().angle;
+      page.setRotation(degrees((currentRotation + pageRotations[pageNum]) % 360));
+    }
+  });
+
+  const pdfBytes = await pdf.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Convert multiple images to single PDF
+export async function imagesToPDF(files: File[]): Promise<Blob> {
+  const pdfDoc = await PDFDocument.create();
+
+  for (const file of files) {
+    const arrayBuffer = await file.arrayBuffer();
+    
+    let image;
+    if (file.type === 'image/png') {
+      image = await pdfDoc.embedPng(arrayBuffer);
+    } else if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
+      image = await pdfDoc.embedJpg(arrayBuffer);
+    } else {
+      throw new Error(`Unsupported image format: ${file.type}. Use JPG or PNG.`);
+    }
+
+    const page = pdfDoc.addPage([image.width, image.height]);
+    page.drawImage(image, {
+      x: 0,
+      y: 0,
+      width: image.width,
+      height: image.height,
+    });
+  }
+
+  const pdfBytes = await pdfDoc.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Helper function to estimate text width (approximation)
+// Note: This is a rough estimate. For precise positioning, pdf-lib's font metrics would be needed
+// Using ~0.6 * fontSize as average character width works reasonably well for most fonts
+function estimateTextWidth(text: string, fontSize: number): number {
+  return text.length * fontSize * 0.6;
+}
+
+// Add page numbers to PDF
+export async function addPageNumbers(
+  file: File,
+  position: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right',
+  fontSize: number = 12,
+  startPage: number = 1
+): Promise<Blob> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const pages = pdf.getPages();
+
+  pages.forEach((page, index) => {
+    const pageNumber = index + startPage;
+    const { width, height } = page.getSize();
+    const text = `${pageNumber}`;
+    const textWidth = estimateTextWidth(text, fontSize);
+
+    // Calculate position
+    let x = 0;
+    let y = 0;
+    const margin = 30;
+
+    // Horizontal position
+    if (position.includes('left')) {
+      x = margin;
+    } else if (position.includes('center')) {
+      x = width / 2 - textWidth / 2;
+    } else if (position.includes('right')) {
+      x = width - margin - textWidth;
+    }
+
+    // Vertical position
+    if (position.includes('top')) {
+      y = height - margin;
+    } else if (position.includes('bottom')) {
+      y = margin;
+    }
+
+    page.drawText(text, {
+      x,
+      y,
+      size: fontSize,
+    });
+  });
+
+  const pdfBytes = await pdf.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Add text watermark to PDF
+export async function addTextWatermark(
+  file: File,
+  text: string,
+  opacity: number = 0.5,
+  fontSize: number = 48
+): Promise<Blob> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const pages = pdf.getPages();
+
+  pages.forEach((page) => {
+    const { width, height } = page.getSize();
+    const textWidth = estimateTextWidth(text, fontSize);
+
+    page.drawText(text, {
+      x: width / 2 - textWidth / 2,
+      y: height / 2,
+      size: fontSize,
+      opacity,
+      rotate: degrees(45),
+    });
+  });
+
+  const pdfBytes = await pdf.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}

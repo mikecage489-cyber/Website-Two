@@ -1,12 +1,20 @@
-import PlaceholderPDFTool from './PlaceholderPDFTool';
+import ComingSoonTool from './ComingSoonTool';
 
 export default function UnlockPDF() {
   return (
-    <PlaceholderPDFTool
+    <ComingSoonTool
       toolName="Unlock PDF"
-      description="Remove password protection from PDF files (you must know the password)."
-      accept=".pdf"
-      multiple={false}
+      description="We're developing a secure PDF unlocking tool. Remove password protection from your PDFs (you must know the password) to make them freely accessible."
+      features={[
+        'Remove user and owner passwords',
+        'Decrypt protected PDFs securely',
+        'Maintain original quality',
+        'Process locally in your browser',
+        'No file upload to servers',
+      ]}
+      acceptFileTypes=".pdf"
+      fileTypeLabel="Password-Protected PDF Files"
     />
   );
 }
+

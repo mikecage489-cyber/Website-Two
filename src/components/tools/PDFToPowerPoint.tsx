@@ -1,12 +1,20 @@
-import PlaceholderPDFTool from './PlaceholderPDFTool';
+import ComingSoonTool from './ComingSoonTool';
 
 export default function PDFToPowerPoint() {
   return (
-    <PlaceholderPDFTool
+    <ComingSoonTool
       toolName="PDF to PowerPoint"
-      description="Convert PDF files to editable PowerPoint presentations (PPT, PPTX)."
-      accept=".pdf"
-      multiple={false}
+      description="We're building a PDF to PowerPoint converter. Transform your PDF files into editable PowerPoint presentations with preserved layouts and graphics."
+      features={[
+        'Convert PDF to PPT/PPTX format',
+        'Maintain slide layouts and designs',
+        'Extract images and graphics',
+        'Preserve text formatting',
+        'Support for multi-page PDFs',
+      ]}
+      acceptFileTypes=".pdf"
+      fileTypeLabel="PDF Files"
     />
   );
 }
+

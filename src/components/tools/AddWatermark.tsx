@@ -1,12 +1,177 @@
-import PlaceholderPDFTool from './PlaceholderPDFTool';
+import { useState } from 'react';
+import { Download, Loader, AlertCircle, CheckCircle, Droplet } from 'lucide-react';
+import PDFUploader from '../pdf/PDFUploader';
+import { addTextWatermark, downloadFile } from '../../utils/pdfUtils';
 
 export default function AddWatermark() {
+  const [file, setFile] = useState<File | null>(null);
+  const [watermarkText, setWatermarkText] = useState('CONFIDENTIAL');
+  const [opacity, setOpacity] = useState(0.3);
+  const [fontSize, setFontSize] = useState(48);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  const handleFileSelect = (selectedFiles: File[]) => {
+    if (selectedFiles.length > 0) {
+      setFile(selectedFiles[0]);
+      setError('');
+      setSuccess(false);
+    }
+  };
+
+  const handleAdd = async () => {
+    if (!file) {
+      setError('Please upload a PDF file first');
+      return;
+    }
+
+    if (!watermarkText.trim()) {
+      setError('Please enter watermark text');
+      return;
+    }
+
+    setIsProcessing(true);
+    setError('');
+    setSuccess(false);
+
+    try {
+      const resultBlob = await addTextWatermark(file, watermarkText, opacity, fontSize);
+      downloadFile(resultBlob, `watermarked-${file.name}`);
+      setSuccess(true);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : 'Failed to add watermark. Please ensure the file is a valid PDF document.'
+      );
+      console.error(err);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleReset = () => {
+    setFile(null);
+    setError('');
+    setSuccess(false);
+  };
+
   return (
-    <PlaceholderPDFTool
-      toolName="Add Watermark"
-      description="Add text or image watermarks to protect your PDF documents from unauthorized use."
-      accept=".pdf"
-      multiple={false}
-    />
+    <div className="space-y-6">
+      {!file ? (
+        <PDFUploader
+          onFileSelect={handleFileSelect}
+          multiple={false}
+          label="Select PDF file to add watermark"
+        />
+      ) : (
+        <>
+          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center space-x-3">
+              <Droplet className="w-5 h-5 text-gray-600" />
+              <div className="text-sm">
+                <p className="font-medium text-gray-900">{file.name}</p>
+                <p className="text-gray-600">
+                  Ready to add watermark
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={handleReset}
+              className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors"
+            >
+              Upload Different File
+            </button>
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Watermark Text
+              </label>
+              <input
+                type="text"
+                value={watermarkText}
+                onChange={(e) => setWatermarkText(e.target.value)}
+                placeholder="Enter watermark text"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Opacity: {Math.round(opacity * 100)}%
+              </label>
+              <input
+                type="range"
+                min="0.1"
+                max="1"
+                step="0.05"
+                value={opacity}
+                onChange={(e) => setOpacity(parseFloat(e.target.value))}
+                className="w-full"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Font Size: {fontSize}pt
+              </label>
+              <input
+                type="range"
+                min="24"
+                max="96"
+                value={fontSize}
+                onChange={(e) => setFontSize(parseInt(e.target.value))}
+                className="w-full"
+              />
+            </div>
+
+            <div className="p-4 bg-blue-50 border border-blue-200 rounded-md">
+              <p className="text-sm text-blue-800">
+                <strong>Preview:</strong> The watermark will be displayed diagonally across the center of each page at {Math.round(opacity * 100)}% opacity.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center space-y-4">
+            <button
+              onClick={handleAdd}
+              disabled={isProcessing}
+              className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center space-x-2 transition-colors"
+            >
+              {isProcessing ? (
+                <>
+                  <Loader className="w-5 h-5 animate-spin" />
+                  <span>Adding Watermark...</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-5 h-5" />
+                  <span>Add Watermark & Download</span>
+                </>
+              )}
+            </button>
+          </div>
+        </>
+      )}
+
+      {error && (
+        <div className="flex items-start space-x-2 p-4 bg-red-50 border border-red-200 rounded-md">
+          <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-red-600">{error}</p>
+        </div>
+      )}
+
+      {success && (
+        <div className="flex items-start space-x-2 p-4 bg-green-50 border border-green-200 rounded-md">
+          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+          <div className="text-sm text-green-600">
+            <p className="font-medium mb-1">Watermark added successfully!</p>
+            <p>Your download should start automatically.</p>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
+
