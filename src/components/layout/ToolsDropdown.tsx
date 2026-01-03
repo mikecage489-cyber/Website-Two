@@ -44,7 +44,7 @@ export default function ToolsDropdown({ isOpen, onClose, isMobile = false }: Too
   if (!isOpen) return null;
 
   // Group tools by category
-  const categories: ToolCategory[] = ['text-tools', 'calculator-tools', 'converter-tools', 'developer-tools', 'seo-tools'];
+  const categories: ToolCategory[] = ['text-tools', 'calculator-tools', 'converter-tools', 'developer-tools', 'seo-tools', 'pdf-tools'];
   const toolsByCategory = categories.map(categoryId => ({
     category: categoryInfo[categoryId],
     categoryId,
@@ -212,7 +212,7 @@ export default function ToolsDropdown({ isOpen, onClose, isMobile = false }: Too
         {/* Divider */}
         <div className="border-t border-gray-100 my-6"></div>
 
-        {/* Row 2: Calculator Tools | Developer Tools */}
+        {/* Row 2: Calculator Tools | Developer Tools | PDF Tools */}
         <div className="grid grid-cols-3 gap-8">
           {/* Calculator Tools */}
           <div className="space-y-3">
@@ -276,8 +276,36 @@ export default function ToolsDropdown({ isOpen, onClose, isMobile = false }: Too
             </div>
           </div>
 
-          {/* Empty third column */}
-          <div></div>
+          {/* PDF Tools */}
+          <div className="space-y-3">
+            <Link
+              to="/category/pdf-tools"
+              className="flex items-center gap-2 font-heading font-semibold text-gray-900 hover:text-primary-600 transition-colors text-base mb-4"
+              onClick={onClose}
+            >
+              <CategoryIcon iconName={categoryInfo['pdf-tools'].icon} className="w-5 h-5 text-primary-600" />
+              <span>PDF Tools</span>
+            </Link>
+            <div className="space-y-2">
+              {tools.filter(t => t.category === 'pdf-tools').slice(0, 5).map(tool => (
+                <Link
+                  key={tool.id}
+                  to={tool.path}
+                  className="block font-sans text-gray-600 hover:text-primary-600 transition-colors text-sm py-1"
+                  onClick={onClose}
+                >
+                  {tool.name}
+                </Link>
+              ))}
+              <Link
+                to="/category/pdf-tools"
+                className="flex items-center gap-1 font-sans text-primary-600 hover:text-primary-700 transition-colors text-sm font-medium pt-2"
+                onClick={onClose}
+              >
+                View all <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

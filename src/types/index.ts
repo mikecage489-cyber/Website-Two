@@ -24,7 +24,16 @@ export type ToolCategory =
   | 'calculator-tools'
   | 'converter-tools'
   | 'developer-tools'
-  | 'seo-tools';
+  | 'seo-tools'
+  | 'pdf-tools';
+
+export type PDFToolSubcategory = 
+  | 'organize-pdf'
+  | 'optimize-pdf'
+  | 'convert-to-pdf'
+  | 'convert-from-pdf'
+  | 'edit-pdf'
+  | 'pdf-security';
 
 export interface CategoryInfo {
   id: ToolCategory;

@@ -1,4 +1,4 @@
-import { Type, Calculator, RefreshCw, Code, Search } from 'lucide-react';
+import { Type, Calculator, RefreshCw, Code, Search, FileText } from 'lucide-react';
 
 interface CategoryIconProps {
   iconName: string;
@@ -11,6 +11,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   'RefreshCw': RefreshCw,
   'Code': Code,
   'Search': Search,
+  'FileText': FileText,
 };
 
 /**
