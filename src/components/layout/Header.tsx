@@ -41,7 +41,7 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
             <span className="text-2xl font-bold text-primary-600">🛠️</span>
-            <span className="text-xl font-heading font-bold text-gray-900 hidden sm:inline">Helpful Tools</span>
+            <span className="text-xl font-heading font-bold text-gray-900 hidden sm:inline">ToolStack Online</span>
           </Link>
 
           {/* Search Bar (Desktop & Tablet) */}

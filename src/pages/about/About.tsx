@@ -4,19 +4,20 @@ export default function About() {
   return (
     <>
       <SEO
-        title="About Us - Helpful Tools"
-        description="Learn about Helpful Tools, our mission to provide free online tools for everyone, and how we're making the web more accessible."
+        title="About Us - ToolStack Online"
+        description="Learn about ToolStack Online, your trusted source for free online tools and utilities."
+        canonicalUrl="https://toolstackonline.com/about"
       />
 
       <div className="bg-gray-50 min-h-screen">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <h1 className="text-4xl font-heading font-bold text-gray-900 mb-6">About Helpful Tools</h1>
+          <h1 className="text-4xl font-heading font-bold text-gray-900 mb-6">About ToolStack Online</h1>
 
           <div className="bg-white rounded-lg shadow-md p-8 space-y-6">
             <section>
               <h2 className="text-2xl font-heading font-bold text-gray-900 mb-4">Our Mission</h2>
               <p className="text-gray-700 font-sans leading-relaxed">
-                At Helpful Tools, our mission is simple: provide fast, free, and useful online tools
+                At ToolStack Online, our mission is simple: provide fast, free, and useful online tools
                 that make everyday tasks easier. We believe that essential web tools should be
                 accessible to everyone, without registration requirements, paywalls, or complicated
                 interfaces.

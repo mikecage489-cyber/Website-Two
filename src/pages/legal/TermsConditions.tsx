@@ -4,7 +4,7 @@ export default function TermsConditions() {
   return (
     <>
       <SEO
-        title="Terms & Conditions - Helpful Tools"
+        title="Terms & Conditions - ToolStack Online"
         description="Read our terms and conditions to understand the rules and guidelines for using our free online tools."
       />
 
@@ -18,7 +18,7 @@ export default function TermsConditions() {
             <section>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Agreement to Terms</h2>
               <p className="text-gray-700 leading-relaxed">
-                By accessing and using Helpful Tools, you agree to be bound by these Terms and
+                By accessing and using ToolStack Online, you agree to be bound by these Terms and
                 Conditions. If you do not agree with any part of these terms, you may not use our
                 services.
               </p>
@@ -47,8 +47,8 @@ export default function TermsConditions() {
             <section>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Intellectual Property</h2>
               <p className="text-gray-700 leading-relaxed">
-                All content on Helpful Tools, including text, graphics, logos, and software, is
-                the property of Helpful Tools or its content suppliers and is protected by
+                All content on ToolStack Online, including text, graphics, logos, and software, is
+                the property of ToolStack Online or its content suppliers and is protected by
                 copyright and intellectual property laws. You may not use any content without
                 explicit permission.
               </p>
@@ -67,7 +67,7 @@ export default function TermsConditions() {
             <section>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Limitation of Liability</h2>
               <p className="text-gray-700 leading-relaxed">
-                To the maximum extent permitted by law, Helpful Tools shall not be liable for any
+                To the maximum extent permitted by law, ToolStack Online shall not be liable for any
                 indirect, incidental, special, consequential, or punitive damages, or any loss of
                 profits or revenues, whether incurred directly or indirectly, or any loss of data,
                 use, goodwill, or other intangible losses resulting from:
