@@ -1,0 +1,136 @@
+import { PDFDocument, degrees } from 'pdf-lib';
+import { saveAs } from 'file-saver';
+
+// Merge multiple PDFs
+export async function mergePDFs(files: File[]): Promise<Blob> {
+  const mergedPdf = await PDFDocument.create();
+
+  for (const file of files) {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await PDFDocument.load(arrayBuffer);
+    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+    copiedPages.forEach((page) => mergedPdf.addPage(page));
+  }
+
+  const pdfBytes = await mergedPdf.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Split PDF into individual pages
+export async function splitPDF(file: File): Promise<Blob[]> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const pageCount = pdf.getPageCount();
+  const pages: Blob[] = [];
+
+  for (let i = 0; i < pageCount; i++) {
+    const newPdf = await PDFDocument.create();
+    const [copiedPage] = await newPdf.copyPages(pdf, [i]);
+    newPdf.addPage(copiedPage);
+    const pdfBytes = await newPdf.save();
+    pages.push(new Blob([pdfBytes as BlobPart], { type: 'application/pdf' }));
+  }
+
+  return pages;
+}
+
+// Extract specific pages from PDF
+export async function extractPages(file: File, pageNumbers: number[]): Promise<Blob> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const newPdf = await PDFDocument.create();
+
+  const copiedPages = await newPdf.copyPages(pdf, pageNumbers);
+  copiedPages.forEach((page) => newPdf.addPage(page));
+
+  const pdfBytes = await newPdf.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Remove specific pages from PDF
+export async function removePages(file: File, pageNumbers: number[]): Promise<Blob> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const totalPages = pdf.getPageCount();
+  
+  // Get pages to keep (inverse of pages to remove)
+  const pagesToKeep = Array.from({ length: totalPages }, (_, i) => i)
+    .filter(i => !pageNumbers.includes(i));
+
+  const newPdf = await PDFDocument.create();
+  const copiedPages = await newPdf.copyPages(pdf, pagesToKeep);
+  copiedPages.forEach((page) => newPdf.addPage(page));
+
+  const pdfBytes = await newPdf.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Rotate PDF pages
+export async function rotatePDF(file: File, rotation: 90 | 180 | 270): Promise<Blob> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const pages = pdf.getPages();
+
+  pages.forEach(page => {
+    page.setRotation(degrees(rotation));
+  });
+
+  const pdfBytes = await pdf.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Compress PDF (reduce quality)
+export async function compressPDF(file: File): Promise<Blob> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  
+  // Save with compression
+  const pdfBytes = await pdf.save({
+    useObjectStreams: true,
+    addDefaultPage: false,
+  });
+  
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Download file helper
+export function downloadFile(blob: Blob, filename: string) {
+  saveAs(blob, filename);
+}
+
+// Convert image to PDF
+export async function imageToPDF(file: File): Promise<Blob> {
+  const pdfDoc = await PDFDocument.create();
+  const arrayBuffer = await file.arrayBuffer();
+  
+  let image;
+  if (file.type === 'image/png') {
+    image = await pdfDoc.embedPng(arrayBuffer);
+  } else if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
+    image = await pdfDoc.embedJpg(arrayBuffer);
+  } else {
+    throw new Error('Unsupported image format. Use JPG or PNG.');
+  }
+
+  const page = pdfDoc.addPage([image.width, image.height]);
+  page.drawImage(image, {
+    x: 0,
+    y: 0,
+    width: image.width,
+    height: image.height,
+  });
+
+  const pdfBytes = await pdfDoc.save();
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
+}
+
+// Get PDF info (page count, etc.)
+export async function getPDFInfo(file: File): Promise<{ pageCount: number; fileSize: number }> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  
+  return {
+    pageCount: pdf.getPageCount(),
+    fileSize: file.size,
+  };
+}
