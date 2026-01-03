@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Type, Calculator, RefreshCw, Code, Search, ArrowRight } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { tools as allTools } from '../../config/tools';
-import type { ToolCategory } from '../../types';
+import type { ToolCategory, Tool } from '../../types';
 
 interface ToolsDropdownProps {
   isOpen: boolean;
@@ -10,7 +10,7 @@ interface ToolsDropdownProps {
   isMobile: boolean;
 }
 
-const categoryConfig: Record<ToolCategory, { icon: React.ComponentType<any>; color: string }> = {
+const categoryConfig: Record<ToolCategory, { icon: LucideIcon; color: string }> = {
   'text-tools': { icon: Type, color: 'text-blue-500' },
   'calculator-tools': { icon: Calculator, color: 'text-green-500' },
   'converter-tools': { icon: RefreshCw, color: 'text-purple-500' },
@@ -27,21 +27,20 @@ const categoryNames: Record<ToolCategory, string> = {
 };
 
 export default function ToolsDropdown({ isOpen, onClose, isMobile }: ToolsDropdownProps) {
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
   if (!isOpen) return null;
 
   // Get featured tools from each category (max 3 per category)
-  const featuredToolsByCategory: Record<string, typeof allTools> = {};
+  const featuredToolsByCategory: Record<ToolCategory, Tool[]> = {
+    'text-tools': [],
+    'calculator-tools': [],
+    'converter-tools': [],
+    'developer-tools': [],
+    'seo-tools': []
+  };
   
   allTools.forEach(tool => {
-    if (tool.featured) {
-      if (!featuredToolsByCategory[tool.category]) {
-        featuredToolsByCategory[tool.category] = [];
-      }
-      if (featuredToolsByCategory[tool.category].length < 3) {
-        featuredToolsByCategory[tool.category].push(tool);
-      }
+    if (tool.featured && featuredToolsByCategory[tool.category].length < 3) {
+      featuredToolsByCategory[tool.category].push(tool);
     }
   });
 
@@ -92,7 +91,6 @@ export default function ToolsDropdown({ isOpen, onClose, isMobile }: ToolsDropdo
   // Desktop layout - multi-column with right alignment
   return (
     <div
-      ref={dropdownRef}
       className="absolute right-0 mt-2 bg-white shadow-2xl border border-gray-100 rounded-lg z-50 animate-fadeIn"
       style={{
         maxWidth: '900px',
